@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { Configuration, OpenAIApi } from "openai";
 import ColorRow from '../../components/ColorRow';
+import Prompter from '../../components/Prompter';
 
 const configuration = new Configuration({
   apiKey: process.env.REACT_APP_OPENAI_API_KEY
@@ -57,19 +58,9 @@ const Main = () => {
         <ColorRow hex={'#9EA587'}/>
         <ColorRow hex={'#632A50'}/>
         <ColorRow hex={'#C2E812'}/>
+        <Prompter></Prompter>
 
-        <h3>Name my pet</h3>
-        <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            name="animal"
-            placeholder="Enter an animal"
-            value={colorInput}
-            onChange={(e) => setColorInput(e.target.value)}
-          />
-          <input type="submit" value="Generate names" />
-        </form>
-        <div style={{backgroundColor: result}}>{result}</div>
+       
       </main>
     </div>
   );
