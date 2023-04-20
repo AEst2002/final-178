@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Configuration, OpenAIApi } from "openai";
 import ColorRow from '../../components/ColorRow';
 import Prompter from '../../components/Prompter';
+import Sidebar from '../../components/Sidebar';
 
 const configuration = new Configuration({
   apiKey: process.env.REACT_APP_OPENAI_API_KEY
@@ -55,10 +56,10 @@ const Main = () => {
       </Head>
 
       <main>
-        <ColorRow hex={'#9EA587'}/>
-        <ColorRow hex={'#632A50'}/>
-        <ColorRow hex={'#C2E812'}/>
-        <Prompter></Prompter>
+        <Prompter/>
+        <Sidebar/>
+       
+        
 
        
       </main>
