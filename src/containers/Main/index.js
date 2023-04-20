@@ -12,7 +12,7 @@ const openai = new OpenAIApi(configuration);
 
 
 const Main = () => {
-  const [animalInput, setAnimalInput] = useState("");
+  const [colorInput, setColorInput] = useState("");
   const [result, setResult] = useState();
 
   const onSubmit = async (event) => {
@@ -21,7 +21,7 @@ const Main = () => {
 
       const completion = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: `Come up with a hex code for a light shade of ${animalInput}`,
+        prompt: `Come up with a hex code for a light shade of ${colorInput}`,
         temperature: 0.6,
       });
       console.log(completion)
@@ -64,12 +64,12 @@ const Main = () => {
             type="text"
             name="animal"
             placeholder="Enter an animal"
-            value={animalInput}
-            onChange={(e) => setAnimalInput(e.target.value)}
+            value={colorInput}
+            onChange={(e) => setColorInput(e.target.value)}
           />
           <input type="submit" value="Generate names" />
         </form>
-        <div style={{backgroundColor: 'pink'}}>{result}</div>
+        <div style={{backgroundColor: result}}>{result}</div>
       </main>
     </div>
   );
