@@ -12,7 +12,7 @@ const Prompter = () => {
     return (
         <div>
             <ColorPrompter/>
-           <PalettePrompter/>
+            <PalettePrompter/>
         </div>
     );
 
