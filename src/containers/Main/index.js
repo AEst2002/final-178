@@ -1,11 +1,12 @@
 
 import React from 'react'
-import Head from "next/head";
+// import Head from "next/head";
 import { useState } from "react";
 import { Configuration, OpenAIApi } from "openai";
 import ColorRow from '../../components/ColorRow';
 import Prompter from '../../components/Prompter';
 import Sidebar from '../../components/Sidebar';
+import { Container } from './styles'
 
 const configuration = new Configuration({
   apiKey: process.env.REACT_APP_OPENAI_API_KEY
@@ -50,16 +51,10 @@ const Main = () => {
   }
 
   return (
-    <div>
-      <Head>
-        <title>OpenAI Quickstart</title>
-      </Head>
-
-      <main>
+    <Container>
         <Prompter/>
         <Sidebar/>
-      </main>
-    </div>
+    </Container>
   );
 }
 
