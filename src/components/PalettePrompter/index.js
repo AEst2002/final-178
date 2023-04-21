@@ -19,6 +19,7 @@ const PalettePrompter = () => {
             model: "text-davinci-003",
             prompt: `Come up with hex codes for a ${adjectiveInput} palette of ${numberInput} colors. List each color separated by a space`,
             temperature: 0.6,
+            max_tokens: 100,
           });
           console.log(completion)
     
@@ -28,6 +29,7 @@ const PalettePrompter = () => {
           alert(error.message);
         }
     }
+
 
     return (
         <div style={{width: "50%"}}>
