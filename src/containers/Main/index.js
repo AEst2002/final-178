@@ -58,10 +58,6 @@ const Main = () => {
       <main>
         <Prompter/>
         <Sidebar/>
-       
-        
-
-       
       </main>
     </div>
   );
