@@ -11,7 +11,7 @@ import PalettePrompter from '../PalettePrompter'
 const Prompter = ({currentColors, setCurrentColors}) => {
     return (
         <div>
-            <ColorPrompter currentColors={currentColors} setCurrentColors={setCurrentColors}/>
+            {/* <ColorPrompter currentColors={currentColors} setCurrentColors={setCurrentColors}/> */}
             <PalettePrompter currentColors={currentColors} setCurrentColors={setCurrentColors}/>
         </div>
     );

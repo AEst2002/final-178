@@ -35,6 +35,7 @@ const ColorPrompter = ({currentColors, setCurrentColors}) => {
         <div style={{width: "60%",}}>
             <h3>Generate a</h3>
             <form onSubmit={onSubmit}>
+              <h3>color that</h3>
                 <input
                     type="text"
                     name="adjective"
@@ -42,7 +43,6 @@ const ColorPrompter = ({currentColors, setCurrentColors}) => {
                     value={adjectiveInput}
                     onChange={(e) => setAdjectiveInput(e.target.value)}
                 />
-                <h3>shade of</h3>
                 <input
                     type="text"
                     name="color"

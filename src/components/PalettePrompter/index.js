@@ -10,15 +10,17 @@ const openai = new OpenAIApi(configuration);
   
 const PalettePrompter = ({currentColors, setCurrentColors}) => {
     const [numberInput, setNumberInput] = useState("");
+    const [colorInput, setColorInput] = useState("");
+    const [multiColor, setMultiColor] = useState(false);
     const [adjectiveInput, setAdjectiveInput] = useState("");
     const [resultColors, setResultColors] = useState();
     const [resultExplanation, setResultExplanation] = useState();
     const [explanation, setExplanation] = useState(false);
 
     const onSubmit = async (event) => {
-        let prompt = `Come up with hex codes for ${numberInput} colors that ${adjectiveInput}. List each color followed by a single space, including the last color.`;
+        let prompt = multiColor ? `Come up with hex codes for ${numberInput} colors that ${adjectiveInput}. List each color followed by a single space, including the last color.` : `Come up with a hex code for a shade of ${colorInput} that ${adjectiveInput} `;
         if (explanation) {
-          prompt = prompt.concat(`Then, starting with '\\', explain why you chose those colors. Keep the list of colors separate from the explanation`);
+          prompt = multiColor ? prompt.concat(`Then, starting with '\\', explain why you chose those colors. Keep the list of colors separate from the explanation`) : `Then, starting with '\\', explain why you chose that color.`;
         }
         event.preventDefault();
         try {
@@ -51,18 +53,38 @@ const PalettePrompter = ({currentColors, setCurrentColors}) => {
         <div style={{width: "50%"}}>
             <h3>Generate</h3>
             <form onSubmit={onSubmit}>
-              <input
+              { multiColor ? (
+                  <div>
+                    <input
                       type="text"
                       name="number"
                       placeholder="number"
                       value={numberInput}
-                      onChange={(e) => setNumberInput(e.target.value)}
-              />
-              <h3>colors that</h3>
-              <p>"look like a sunset"</p>
-              <p>"go well in a fourth grader's bedroom"</p>
-              <p>"all contrast each other"</p>
-              <p>"remind you of an 80s disco"</p>
+                      onChange={(e) => setNumberInput(e.target.value)}/>
+                    <h3>colors that</h3>
+                    <p>"look like a sunset"</p>
+                    <p>"go well in a fourth grader's bedroom"</p>
+                    <p>"all contrast each other"</p>
+                    <p>"remind you of an 80s disco"</p>
+                  </div>
+                ) :
+                (
+                  <div>
+                    <h3>a shade of</h3>
+                    <input
+                      type="text"
+                      name="color"
+                      placeholder="color"
+                      value={colorInput}
+                      onChange={(e) => setColorInput(e.target.value)}/>
+                    
+                    <p>"goes well with pale pink"</p>
+                    <p>"looks like the sky"</p>
+                    <p>"is very bright"</p>
+                    <p>"feels calming"</p>
+                  </div>
+                )}
+              
               <input
                   type="text"
                   name="adjective"
@@ -76,18 +98,24 @@ const PalettePrompter = ({currentColors, setCurrentColors}) => {
                 value={explanation}
                 onChange={(e) => setExplanation(!explanation)} 
               />
-                <span class="help-text">Explain why the AI chose this palette.</span>
-                <br/>
-                <input type="submit" value="Generate palette" />
+              { multiColor ? <span class="help-text">Explain why the AI chose these colors.</span>
+                           :  <span class="help-text">Explain why the AI chose this color.</span>
+              }
+               
+              { multiColor ? <input type="submit" value="Generate colors" />
+                           : <input type="submit" value="Generate color" />
+
+              }
             </form>
             {  
-              resultColors && resultColors.split(" ").slice(0, -1).map(element => (
+              resultColors && multiColor && resultColors.split(" ").slice(0, -1).map(element => (
                  <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.trim()}/>
               ))
             }
             {
-              resultExplanation 
+              resultColors && !multiColor && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={resultColors.trim()}/>
             }
+            { resultExplanation }
         </div>
     );
 
