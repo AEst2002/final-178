@@ -1,4 +1,7 @@
 const textColor = (hexCode) => {
+    if (hexCode[0] !== "#") {
+        hexCode = "#" + hexCode
+    }
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexCode);
     const rgb = result ? {
         r: parseInt(result[1], 16),

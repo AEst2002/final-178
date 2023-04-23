@@ -11,26 +11,42 @@ const openai = new OpenAIApi(configuration);
 const PalettePrompter = ({currentColors, setCurrentColors}) => {
     const [numberInput, setNumberInput] = useState("");
     const [adjectiveInput, setAdjectiveInput] = useState("");
-    const [result, setResult] = useState();
+    const [resultColors, setResultColors] = useState();
+    const [resultExplanation, setResultExplanation] = useState();
+    const [explanation, setExplanation] = useState(false);
+
     const onSubmit = async (event) => {
+        let prompt = `Come up with hex codes for ${numberInput} colors that ${adjectiveInput}. List each color followed by a single space, including the last color. `;
+        if (explanation) {
+          prompt = prompt.concat(`Then, starting with '\\', explain why you chose those colors. Keep the list of colors separate from the explanation`);
+        }
         event.preventDefault();
         try {
     
           const completion = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: `Come up with hex codes for a ${adjectiveInput} palette of ${numberInput} colors that look good together. List each color separated by a space, with no spaces or new lines before the first element.`,            temperature: 0.6,
-            max_tokens: 100,
+            prompt: prompt,            
+            max_tokens: 200,
           });
-          console.log(completion)
+
+          if (explanation) {
+            let resultArray = completion.data.choices[0].text.split('\\')
+            setResultColors(resultArray[0])
+            setResultExplanation(resultArray[1])
+
+          }
+
+          else {
+            setResultColors(completion.data.choices[0].text)
+          }
+         
     
-          setResult(completion.data.choices[0].text);
         } catch(error) {
-          console.error(error);
-          alert(error.message);
+          console.error(error)
+          alert(error.message)
         }
     }
-
-
+   
     return (
         <div style={{width: "50%"}}>
             <h3>Generate a</h3>
@@ -51,12 +67,21 @@ const PalettePrompter = ({currentColors, setCurrentColors}) => {
                     onChange={(e) => setNumberInput(e.target.value)}
                 />
                 <h3>colors</h3>
+                <input
+                  type="checkbox"
+                  value={explanation}
+                  onChange={(e) => setExplanation(!explanation)} />
+                <span class="help-text">Explain why the AI chose this palette.</span>
+                <br/>
                 <input type="submit" value="Generate palette" />
             </form>
             {  
-              result && result.split(" ").map(element => (
+              resultColors && resultColors.split(" ").slice(0, -1).map(element => (
                  <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.trim()}/>
               ))
+            }
+            {
+              resultExplanation 
             }
         </div>
     );
