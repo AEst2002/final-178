@@ -3,9 +3,9 @@ import './App.css';
 import Main from './containers/Main';
 
 const App = () => {
-  const [currentColors, setCurrentColors] = useState(['#C2E812', '#632A50', '#9EA587'])
+  const [currentColors, setCurrentColors] = useState([])
   return (
-    <Main currentColors={currentColors}/>
+    <Main setCurrentColors={setCurrentColors} currentColors={currentColors}/>
   );
 }
 

@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import { Configuration, OpenAIApi } from "openai";
+import ColorChip from '../ColorChip';
 
 
 const configuration = new Configuration({
@@ -7,7 +8,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const ColorPrompter = () => {
+const ColorPrompter = ({currentColors, setCurrentColors}) => {
     const [colorInput, setColorInput] = useState("");
     const [adjectiveInput, setAdjectiveInput] = useState("");
     const [result, setResult] = useState();
@@ -29,8 +30,9 @@ const ColorPrompter = () => {
         }
     }
 
+    console.log(result)
     return (
-        <div style={{width: "50%"}}>
+        <div style={{width: "60%",}}>
             <h3>Generate a</h3>
             <form onSubmit={onSubmit}>
                 <input
@@ -50,7 +52,7 @@ const ColorPrompter = () => {
                 />
                 <input type="submit" value="Generate color" />
             </form>
-            <div style={{backgroundColor: result}}>{result}</div>
+            {result && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={result.trim()}/>}
         </div>
     );
 
