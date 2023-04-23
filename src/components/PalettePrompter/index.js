@@ -16,7 +16,7 @@ const PalettePrompter = ({currentColors, setCurrentColors}) => {
     const [explanation, setExplanation] = useState(false);
 
     const onSubmit = async (event) => {
-        let prompt = `Come up with hex codes for ${numberInput} colors that ${adjectiveInput}. List each color followed by a single space, including the last color. `;
+        let prompt = `Come up with hex codes for ${numberInput} colors that ${adjectiveInput}. List each color followed by a single space, including a space after the last color. `;
         if (explanation) {
           prompt = prompt.concat(`Then, starting with '\\', explain why you chose those colors. Keep the list of colors separate from the explanation`);
         }
@@ -76,8 +76,13 @@ const PalettePrompter = ({currentColors, setCurrentColors}) => {
                 <input type="submit" value="Generate palette" />
             </form>
             {  
-              resultColors && resultColors.split(" ").slice(0, -1).map(element => (
-                 <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.trim()}/>
+              resultColors && resultColors.split(" ").map(element => (
+                 element.includes('#') && 
+                  <ColorChip 
+                    currentColors={currentColors} 
+                    setCurrentColors={setCurrentColors} 
+                    hex={element.slice(element.indexOf('#')).trim()}
+                  />
               ))
             }
             {
