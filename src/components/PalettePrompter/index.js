@@ -17,7 +17,7 @@ const PalettePrompter = () => {
     
           const completion = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: `Come up with hex codes for a ${adjectiveInput} palette of ${numberInput} colors. List each color separated by a space`,
+            prompt: `Come up with hex codes for a ${adjectiveInput} palette of ${numberInput} colors that look good together. List each color separated by a space, with no spaces or new lines before the first element.`,
             temperature: 0.6,
             max_tokens: 100,
           });
@@ -54,11 +54,10 @@ const PalettePrompter = () => {
                 <input type="submit" value="Generate palete" />
             </form>
             {  
-              result && result.split(" ").forEach(element => (
-                <div style={{backgroundColor: element}}>{element}</div>
+              result && result.split(" ").map(element => (
+                <div style={{backgroundColor: element}}>{element} hiiii</div>
               ))
             }
-            <div style={{backgroundColor: result}}>{result}</div>
         </div>
     );
 
