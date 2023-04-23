@@ -18,7 +18,7 @@ const PalettePrompter = ({currentColors, setCurrentColors}) => {
     
           const completion = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: `Come up with hex codes for  ${numberInput} colors that ${adjectiveInput}. List each color separated by a space, with no spaces or new lines before the first element. Explain why you chose those colors`,
+            prompt: `Come up with hex codes for  ${numberInput} colors that ${adjectiveInput}. List each color separated by a space, with no spaces or new lines before the first element. Explain why you chose those colors. Separate the list of colors from the explanation `,
             temperature: 0.6,
             max_tokens: 100,
           });
@@ -57,11 +57,7 @@ const PalettePrompter = ({currentColors, setCurrentColors}) => {
             <div>{result}</div>
             {  
               result && result.split(" ").map(element => (
-<<<<<<< HEAD
-                <div style={{backgroundColor: element}}>{element}</div>
-=======
                  <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.trim()}/>
->>>>>>> fda385f9241b5cfe2a2c2006cc56ec13f3c0e74f
               ))
             }
         </div>
