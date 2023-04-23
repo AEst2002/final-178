@@ -20,7 +20,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
     const onSubmit = async (event) => {
         let prompt = multiColor ? `Come up with hex codes for ${numberInput} colors that ${adjectiveInput}. List each color followed by a single space, including a space after the last color.` : `Come up with a hex code for a shade of ${colorInput} that ${adjectiveInput}. State the hex code by itself. `;
         if (explanation) {
-          prompt = prompt.concat(`Then, starting with '\\', explain why you chose those colors. Keep the list of colors separate from the explanation`)
+          prompt = prompt.concat(`Then, after listing all the colors, explain your choices, and delimit your explanation with a '\\'. Never place a '\\' anywhere else except to delimit your explanation. Always include '#' in your hex codes.`)
         }
         event.preventDefault();
         try {
@@ -49,6 +49,8 @@ const Prompter = ({currentColors, setCurrentColors}) => {
           alert(error.message)
         }
     }
+
+    console.log(resultColors ? resultColors.split(' ') : 'wait')
    
     return (
         <div style={{width: "50%"}}>
@@ -117,13 +119,14 @@ const Prompter = ({currentColors, setCurrentColors}) => {
 
               }
             </form>
-            {  
-              resultColors && multiColor && resultColors.split(" ").slice(0, -1).map(element => (
-                 <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.trim()}/>
-              ))
-            }
             {
-              resultColors && !multiColor && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={resultColors.trim()}/>
+              multiColor ? 
+                (resultColors && 
+                    resultColors.split(" ").map(element => 
+                        (element.includes('#') && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.slice(element.indexOf('#')).trim()}/>
+                ))) 
+                : 
+                (resultColors && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={resultColors.trim()}/>)
             }
             { resultExplanation }
         </div>
