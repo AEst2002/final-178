@@ -108,7 +108,7 @@ const PalettePrompter = ({currentColors, setCurrentColors}) => {
               }
             </form>
             {  
-              resultColors && resultColors.split(" ").slice(0, -1).map(element => (
+              resultColors && multiColor && resultColors.split(" ").slice(0, -1).map(element => (
                  <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.trim()}/>
               ))
             }
