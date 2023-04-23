@@ -12,7 +12,7 @@ import Trash from '../../assets/Trash.png'
 
 
 
-const ColorRow = ({hex, isFavorite }) => {
+const ColorRow = ({hex, isFavorite, setCurrentColors, currentColors, index}) => {
     // Hex code to RGB conversion.
     const hexToRgb = (hexCode) => {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexCode);
@@ -33,9 +33,15 @@ const ColorRow = ({hex, isFavorite }) => {
         }
     }, [hex])
 
+    const handleDelete = () => {
+        const curColCopy = [...currentColors]
+        curColCopy.splice(index, 1)
+        setCurrentColors(curColCopy)
+    }
+
     return (
         <RowContainer color={hex}>
-            <CircleButton style={{position: 'absolute', top: '10px', left: '10px'}} icon={Trash} />
+            <CircleButton onClick={handleDelete} style={{position: 'absolute', top: '10px', left: '10px'}} icon={Trash} />
             <CircleButton style={{position: 'absolute', top: '10px', right: '10px'}} icon={isFavorite ? HeartFilled : HeartEmpty}/>
             <Chevron style={{top: '45px', right: '10px'}} src={textColor === '#000000' ? UpBlack : UpWhite}/>
             <Chevron style={{top: '90px', right: '10px'}} src={textColor === '#000000' ? DownBlack : DownWhite}/>

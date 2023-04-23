@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import { Configuration, OpenAIApi } from "openai";
+import ColorChip from '../ColorChip';
 
 
 const configuration = new Configuration({
@@ -7,7 +8,7 @@ const configuration = new Configuration({
   });
 const openai = new OpenAIApi(configuration);
   
-const PalettePrompter = () => {
+const PalettePrompter = ({currentColors, setCurrentColors}) => {
     const [numberInput, setNumberInput] = useState("");
     const [adjectiveInput, setAdjectiveInput] = useState("");
     const [result, setResult] = useState();
@@ -51,12 +52,16 @@ const PalettePrompter = () => {
                     onChange={(e) => setNumberInput(e.target.value)}
                 />
                 <h3>colors</h3>
-                <input type="submit" value="Generate palete" />
+                <input type="submit" value="Generate palette" />
             </form>
             <div>{result}</div>
             {  
               result && result.split(" ").map(element => (
+<<<<<<< HEAD
                 <div style={{backgroundColor: element}}>{element}</div>
+=======
+                 <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.trim()}/>
+>>>>>>> fda385f9241b5cfe2a2c2006cc56ec13f3c0e74f
               ))
             }
         </div>

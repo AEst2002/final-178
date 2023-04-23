@@ -8,11 +8,11 @@ import PalettePrompter from '../PalettePrompter'
 //   });
 // const openai = new OpenAIApi(configuration);
 
-const Prompter = () => {
+const Prompter = ({currentColors, setCurrentColors}) => {
     return (
         <div>
-            <ColorPrompter/>
-            <PalettePrompter/>
+            <ColorPrompter currentColors={currentColors} setCurrentColors={setCurrentColors}/>
+            <PalettePrompter currentColors={currentColors} setCurrentColors={setCurrentColors}/>
         </div>
     );
 

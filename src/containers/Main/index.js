@@ -14,7 +14,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 
-const Main = () => {
+const Main = ({setCurrentColors, currentColors}) => {
   const [colorInput, setColorInput] = useState("");
   const [result, setResult] = useState();
 
@@ -52,8 +52,8 @@ const Main = () => {
 
   return (
     <Container>
-        <Prompter/>
-        <Sidebar/>
+        <Prompter currentColors={currentColors} setCurrentColors={setCurrentColors}/>
+        <Sidebar setCurrentColors={setCurrentColors} currentColors={currentColors}/>
     </Container>
   );
 }

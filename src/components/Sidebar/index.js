@@ -2,12 +2,12 @@ import { React, useState } from 'react'
 import ColorRow from '../ColorRow'
 
   
-const Sidebar = () => {
+const Sidebar = ({currentColors, setCurrentColors}) => {
     return (
         <div style={{float: "right", width: "40%"}}>
-            <ColorRow hex={'#9EA587'}/>
-            <ColorRow hex={'#632A50'}/>
-            <ColorRow hex={'#C2E812'}/>
+            {currentColors.length ? currentColors.map((color, index) => {
+                return <ColorRow index={index} currentColors={currentColors} setCurrentColors={setCurrentColors} hex={color} />
+            }) : <p style={{float: 'right'}}>No colors (yet!)</p>}
         </div>
     )
    
