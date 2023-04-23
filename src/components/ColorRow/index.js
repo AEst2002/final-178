@@ -10,9 +10,7 @@ import UpBlack from '../../assets/UpBlack.png'
 import DownBlack from '../../assets/DownBlack.png'
 import Trash from '../../assets/Trash.png'
 
-
-
-const ColorRow = ({hex, isFavorite, setCurrentColors, currentColors, index}) => {
+const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors, index}) => {
     // Hex code to RGB conversion.
     const hexToRgb = (hexCode) => {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexCode);
@@ -24,7 +22,6 @@ const ColorRow = ({hex, isFavorite, setCurrentColors, currentColors, index}) => 
       }
 
     const [textColor, setTextColor] = useState('#000000')
-
     // Decide what color the text on the row should be depending on the saturation of the color it displays.
     useEffect(() => {
         const {r, g, b} = hexToRgb(hex)
@@ -34,15 +31,29 @@ const ColorRow = ({hex, isFavorite, setCurrentColors, currentColors, index}) => 
     }, [hex])
 
     const handleDelete = () => {
+        // need to copy state and change it because .splice() modifies array in-place.
         const curColCopy = [...currentColors]
         curColCopy.splice(index, 1)
         setCurrentColors(curColCopy)
     }
 
+    const handleFavorite = () => {
+        const favCopy = [...favorites]
+
+        if (favorites.includes(hex)) {
+            favCopy.splice(favCopy.indexOf(hex), 1)
+        } else {
+            favCopy.push(hex)
+        }
+
+        setFavorites(favCopy)
+    }
+
+    console.log(favorites)
     return (
         <RowContainer color={hex}>
             <CircleButton onClick={handleDelete} style={{position: 'absolute', top: '10px', left: '10px'}} icon={Trash} />
-            <CircleButton style={{position: 'absolute', top: '10px', right: '10px'}} icon={isFavorite ? HeartFilled : HeartEmpty}/>
+            <CircleButton onClick={handleFavorite} style={{position: 'absolute', top: '10px', right: '10px'}} icon={favorites.includes(hex) ? HeartFilled : HeartEmpty}/>
             <Chevron style={{top: '45px', right: '10px'}} src={textColor === '#000000' ? UpBlack : UpWhite}/>
             <Chevron style={{top: '90px', right: '10px'}} src={textColor === '#000000' ? DownBlack : DownWhite}/>
             <RowText fontSize={'30px'} color={textColor}>{hex}</RowText>

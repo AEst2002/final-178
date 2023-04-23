@@ -14,7 +14,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 
-const Main = ({setCurrentColors, currentColors}) => {
+const Main = ({favorites, setFavorites, setCurrentColors, currentColors}) => {
   const [colorInput, setColorInput] = useState("");
   const [result, setResult] = useState();
 
@@ -27,20 +27,6 @@ const Main = ({setCurrentColors, currentColors}) => {
         prompt: `Come up with a hex code for a light shade of ${colorInput}`,
         temperature: 0.6,
       });
-      console.log(completion)
-      // const response = await fetch("../../gpt/generate", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ animal: animalInput }),
-      // });
-
-      
-      // const data = await response.json();
-      // if (response.status !== 200) {
-      //   throw data.error || new Error(`Request failed with status ${response.status}`);
-      // }
 
       setResult(completion.data.choices[0].text);
       // setAnimalInput("");
@@ -53,7 +39,7 @@ const Main = ({setCurrentColors, currentColors}) => {
   return (
     <Container>
         <Prompter currentColors={currentColors} setCurrentColors={setCurrentColors}/>
-        <Sidebar setCurrentColors={setCurrentColors} currentColors={currentColors}/>
+        <Sidebar favorites={favorites} setFavorites={setFavorites} setCurrentColors={setCurrentColors} currentColors={currentColors}/>
     </Container>
   );
 }

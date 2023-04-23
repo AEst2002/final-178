@@ -2,11 +2,20 @@ import { React, useState } from 'react'
 import ColorRow from '../ColorRow'
 
   
-const Sidebar = ({currentColors, setCurrentColors}) => {
+const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => {
     return (
         <div style={{float: "right", width: "40%"}}>
             {currentColors.length ? currentColors.map((color, index) => {
-                return <ColorRow index={index} currentColors={currentColors} setCurrentColors={setCurrentColors} hex={color} />
+                return( 
+                    <ColorRow 
+                        index={index} 
+                        currentColors={currentColors} 
+                        setCurrentColors={setCurrentColors} 
+                        hex={color} 
+                        favorites={favorites}
+                        setFavorites={setFavorites}
+                    />
+                )
             }) : <p style={{float: 'right'}}>No colors (yet!)</p>}
         </div>
     )
