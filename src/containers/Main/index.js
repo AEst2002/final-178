@@ -7,6 +7,7 @@ import ColorRow from '../../components/ColorRow';
 import Prompter from '../../components/Prompter';
 import Sidebar from '../../components/Sidebar';
 import { Container } from './styles'
+import Button from '../../components/Button';
 
 const configuration = new Configuration({
   apiKey: process.env.REACT_APP_OPENAI_API_KEY
