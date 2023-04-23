@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Configuration, OpenAIApi } from "openai";
 import ColorChip from '../ColorChip';
 
@@ -13,7 +13,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
     const [colorInput, setColorInput] = useState("");
     const [multiColor, setMultiColor] = useState(false);
     const [adjectiveInput, setAdjectiveInput] = useState("");
-    const [resultColors, setResultColors] = useState();
+    const [resultColors, setResultColors] = useState(null);
     const [resultExplanation, setResultExplanation] = useState();
     const [explanation, setExplanation] = useState(false);
 
@@ -49,15 +49,13 @@ const Prompter = ({currentColors, setCurrentColors}) => {
           alert(error.message)
         }
     }
-
-    console.log(resultColors ? resultColors.split(' ') : 'wait')
    
     return (
         <div style={{width: "50%"}}>
           <input
               type="checkbox"
               value={multiColor}
-              onChange={(e) => setMultiColor(!multiColor)} 
+              onChange={(e) => {setResultColors(null); setMultiColor(!multiColor)}} 
             />
             <span class="help-text">Multiple colors</span>
             <h3>Generate</h3>
