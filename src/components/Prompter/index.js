@@ -18,9 +18,9 @@ const Prompter = ({currentColors, setCurrentColors}) => {
     const [explanation, setExplanation] = useState(false);
 
     const onSubmit = async (event) => {
-        let prompt = multiColor ? `Come up with hex codes for ${numberInput} colors that ${adjectiveInput}. List each color followed by a single space, including a space after the last color.` : `Come up with a hex code for a shade of ${colorInput} that ${adjectiveInput}  `;
+        let prompt = multiColor ? `Come up with hex codes for ${numberInput} colors that ${adjectiveInput}. List each color followed by a single space, including a space after the last color.` : `Come up with a hex code for a shade of ${colorInput} that ${adjectiveInput}. State the hex code by itself. `;
         if (explanation) {
-          prompt = multiColor ? prompt.concat(`Then, starting with '\\', explain why you chose those colors. Keep the list of colors separate from the explanation`) : `Then, starting with '\\', explain why you chose that color.`;
+          prompt = prompt.concat(`Then, starting with '\\', explain why you chose those colors. Keep the list of colors separate from the explanation`)
         }
         event.preventDefault();
         try {
@@ -30,6 +30,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
             prompt: prompt,            
             max_tokens: 200,
           });
+          console.log(completion)
 
           if (explanation) {
             let resultArray = completion.data.choices[0].text.split('\\')
@@ -77,11 +78,12 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                       placeholder="color"
                       value={colorInput}
                       onChange={(e) => setColorInput(e.target.value)}/>
+                    <h3>that</h3>
                     
                     <p>"goes well with pale pink"</p>
                     <p>"looks like the sky"</p>
-                    <p>"is very bright"</p>
                     <p>"feels calming"</p>
+                    <p>"contrasts with #32A852 </p>
                   </div>
                 )}
               
@@ -93,13 +95,15 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                   onChange={(e) => setAdjectiveInput(e.target.value)}
               />
               <br/>
-              <input
-                type="checkbox"
-                value={explanation}
-                onChange={(e) => setExplanation(!explanation)} 
-              />
-              { multiColor ? <span class="help-text">Explain why the AI chose these colors.</span>
-                           :  <span class="help-text">Explain why the AI chose this color.</span>
+              { multiColor ? 
+                (<div>
+                    <input
+                      type="checkbox"
+                      value={explanation}
+                      onChange={(e) => setExplanation(!explanation)} 
+                    />
+                    <span class="help-text">Explain why the AI chose these colors.</span>
+                  </div>) : <br/>
               }
                
               { multiColor ? <input type="submit" value="Generate colors" />
