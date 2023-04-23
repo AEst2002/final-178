@@ -16,7 +16,7 @@ const PalettePrompter = ({currentColors, setCurrentColors}) => {
     const [explanation, setExplanation] = useState(false);
 
     const onSubmit = async (event) => {
-        let prompt = `Come up with hex codes for ${numberInput} colors that ${adjectiveInput}. List each color followed by a single space, including the last color. `;
+        let prompt = `Come up with hex codes for ${numberInput} colors that ${adjectiveInput}. List each color followed by a single space, including the last color.`;
         if (explanation) {
           prompt = prompt.concat(`Then, starting with '\\', explain why you chose those colors. Keep the list of colors separate from the explanation`);
         }
@@ -49,28 +49,33 @@ const PalettePrompter = ({currentColors, setCurrentColors}) => {
    
     return (
         <div style={{width: "50%"}}>
-            <h3>Generate a</h3>
+            <h3>Generate</h3>
             <form onSubmit={onSubmit}>
-                <input
-                    type="text"
-                    name="adjective"
-                    placeholder="adjective"
-                    value={adjectiveInput}
-                    onChange={(e) => setAdjectiveInput(e.target.value)}
-                />
-                <h3>palette of</h3>
-                <input
-                    type="text"
-                    name="number"
-                    placeholder="number"
-                    value={numberInput}
-                    onChange={(e) => setNumberInput(e.target.value)}
-                />
-                <h3>colors</h3>
-                <input
-                  type="checkbox"
-                  value={explanation}
-                  onChange={(e) => setExplanation(!explanation)} />
+              <input
+                      type="text"
+                      name="number"
+                      placeholder="number"
+                      value={numberInput}
+                      onChange={(e) => setNumberInput(e.target.value)}
+              />
+              <h3>colors that</h3>
+              <p>"look like a sunset"</p>
+              <p>"go well in a fourth grader's bedroom"</p>
+              <p>"all contrast each other"</p>
+              <p>"remind you of an 80s disco"</p>
+              <input
+                  type="text"
+                  name="adjective"
+                  placeholder="your prompt here!"
+                  value={adjectiveInput}
+                  onChange={(e) => setAdjectiveInput(e.target.value)}
+              />
+              <br/>
+              <input
+                type="checkbox"
+                value={explanation}
+                onChange={(e) => setExplanation(!explanation)} 
+              />
                 <span class="help-text">Explain why the AI chose this palette.</span>
                 <br/>
                 <input type="submit" value="Generate palette" />
