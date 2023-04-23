@@ -53,7 +53,7 @@ const Main = ({setCurrentColors, currentColors}) => {
   return (
     <Container>
         <Prompter currentColors={currentColors} setCurrentColors={setCurrentColors}/>
-        <Sidebar currentColors={currentColors}/>
+        <Sidebar setCurrentColors={setCurrentColors} currentColors={currentColors}/>
     </Container>
   );
 }
