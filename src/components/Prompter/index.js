@@ -52,6 +52,12 @@ const Prompter = ({currentColors, setCurrentColors}) => {
    
     return (
         <div style={{width: "50%"}}>
+          <input
+              type="checkbox"
+              value={multiColor}
+              onChange={(e) => setMultiColor(!multiColor)} 
+            />
+            <span class="help-text">Multiple colors</span>
             <h3>Generate</h3>
             <form onSubmit={onSubmit}>
               { multiColor ? (
