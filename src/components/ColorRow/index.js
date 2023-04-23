@@ -55,8 +55,8 @@ const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors
         <RowContainer color={hex}>
             <CircleButton onClick={handleDelete} style={{position: 'absolute', top: '10px', left: '10px'}} icon={Trash} />
             <CircleButton onClick={handleFavorite} style={{position: 'absolute', top: '10px', right: '10px'}} icon={favorites.includes(hex) ? HeartFilled : HeartEmpty}/>
-            {index !== 0 && <Chevron onClick={() => handleMove('up')} style={{top: '45px', right: '10px'}} src={textColor === '#000000' ? UpBlack : UpWhite}/>}
-            {index !== (currentColors.length - 1) && <Chevron onClick={() => handleMove('down')} style={{top: '90px', right: '10px'}} src={textColor === '#000000' ? DownBlack : DownWhite}/>}
+            {index !== 0 && <Chevron onClick={() => handleMove('up')} style={{top: '45px', right: '10px'}} src={innerColor === '#000000' ? UpBlack : UpWhite}/>}
+            {index !== (currentColors.length - 1) && <Chevron onClick={() => handleMove('down')} style={{top: '90px', right: '10px'}} src={innerColor === '#000000' ? DownBlack : DownWhite}/>}
             <RowText fontSize={'30px'} color={innerColor}>{hex}</RowText>
             <RowText fontSize={'15px'} color={innerColor}>{ntc.name(hex)[1]}</RowText>
         </RowContainer>

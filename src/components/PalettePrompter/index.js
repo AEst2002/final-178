@@ -53,7 +53,6 @@ const PalettePrompter = ({currentColors, setCurrentColors}) => {
                 <h3>colors</h3>
                 <input type="submit" value="Generate palette" />
             </form>
-            <div>{result}</div>
             {  
               result && result.split(" ").map(element => (
                  <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.trim()}/>
