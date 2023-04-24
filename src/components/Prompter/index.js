@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Configuration, OpenAIApi } from "openai";
 import ColorChip from '../ColorChip';
-import { ResultContainer } from './styles';
+import { PromptContainer, ResultContainer } from './styles';
 import PuffLoader from "react-spinners/PuffLoader";
 import Switch from "@mui/joy/Switch";
-import  Typography  from "@mui/joy/Typography";
+import Typography  from "@mui/joy/Typography";
+import Checkbox from "@mui/joy/Checkbox"
+import TextField from "@mui/material/TextField"
+import Button from "@mui/joy/Button"
 
 const configuration = new Configuration({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY
@@ -57,7 +60,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
     }
    
     return (
-        <div style={{width: "50%"}}>
+        <PromptContainer>
           
           <Switch 
             startDecorator={<Typography>One Color</Typography>} 
@@ -66,14 +69,16 @@ const Prompter = ({currentColors, setCurrentColors}) => {
             onChange={(e) => {setResultColors(null); setMultiColor(!multiColor); setExplanation(false); setResultExplanation()}} 
           />
           <br/>
-          <h3>Generate</h3>
           <form onSubmit={onSubmit}>
             { multiColor ? (
                 <div>
-                  <input
+                  <h3>Generate</h3>
+                  <TextField
                     type="text"
                     name="number"
-                    placeholder="number"
+                    variant="outlined"
+                    size="small"
+                    label="number"
                     value={numberInput}
                     onChange={(e) => setNumberInput(e.target.value)}/>
                   <h3>colors that</h3>
@@ -85,11 +90,11 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                 ) :
                 (
                   <div>
-                    <h3>a shade of</h3>
-                    <input
+                    <h3>Generate a shade of</h3>
+                    <TextField
                       type="text"
                       name="color"
-                      placeholder="color"
+                      label="color"
                       value={colorInput}
                       onChange={(e) => setColorInput(e.target.value)}/>
                     <h3>that</h3>
@@ -101,27 +106,28 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                   </div>
                 )}
               
-              <input
-                  type="text"
+              <TextField
                   name="adjective"
-                  placeholder="your prompt here!"
+                  multiline
+                  label="your prompt here!"
                   value={adjectiveInput}
+                  margin="normal"
                   onChange={(e) => setAdjectiveInput(e.target.value)}
               />
               <br/>
               { multiColor ? 
                 (<div>
-                    <input
-                      type="checkbox"
+                    <Checkbox
                       value={explanation}
                       onChange={(e) => setExplanation(!explanation)} 
+                      label="Explain why the AI chose these colors"
                     />
-                    <span class="help-text">Explain why the AI chose these colors.</span>
-                  </div>) : <br/>
+                  </div>) :
+                  <br/>
               }
                
-              { multiColor ? <input type="submit" value="Generate colors" />
-                           : <input type="submit" value="Generate color" />
+              { multiColor ? <Button type="submit">Generate colors</Button>
+                           : <Button type="submit">Generate color</Button>
 
               }
             </form>
@@ -138,7 +144,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                 (resultColors && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={resultColors.trim()}/>)
             }
             </ResultContainer>
-        </div>
+        </PromptContainer>
     );
 
 }
