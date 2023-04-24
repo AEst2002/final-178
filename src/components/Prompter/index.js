@@ -20,7 +20,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
 
     const onSubmit = async (event) => {
         let prompt = multiColor ? `Come up with hex codes for ${numberInput} colors that ${adjectiveInput}. List each color followed by a single space, including a space after the last color.` : `Come up with a hex code for a shade of ${colorInput} that ${adjectiveInput}. State the hex code by itself. `;
-        if (explanation) {
+        if (multiColor && explanation) {
           prompt = prompt.concat(`Then, after listing all the colors, explain your choices, and delimit your explanation with a '\\'. Never place a '\\' anywhere else except to delimit your explanation. Always include '#' in your hex codes.`)
         }
         event.preventDefault();
@@ -29,7 +29,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
           const completion = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: prompt,            
-            max_tokens: 200,
+            max_tokens: 400,
           });
           console.log(completion)
 
@@ -56,7 +56,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
           <input
               type="checkbox"
               value={multiColor}
-              onChange={(e) => {setResultColors(null); setMultiColor(!multiColor)}} 
+              onChange={(e) => {setResultColors(null); setMultiColor(!multiColor); setExplanation(false); setResultExplanation()}} 
             />
             <span class="help-text">Multiple colors</span>
             <h3>Generate</h3>
@@ -90,7 +90,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                     <p>"goes well with pale pink"</p>
                     <p>"looks like the sky"</p>
                     <p>"feels calming"</p>
-                    <p>"contrasts with #32A852 </p>
+                    <p>"contrasts with #32A852" </p>
                   </div>
                 )}
               
