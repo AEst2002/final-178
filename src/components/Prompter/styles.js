@@ -31,6 +31,7 @@ export const NameContainer = styled.div`
     font-size: 25px;
     background-color: white;
     z-index: 5;
+    padding-left: 5px;
 `
 // export const Name = styled(NameContainer)`
 

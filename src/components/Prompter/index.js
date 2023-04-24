@@ -136,7 +136,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
               }
             </form>
             { loading && <PuffLoader size={40} /> }
-            { resultExplanation }
+            <p> {resultExplanation} </p>
             <ResultContainer>
             {
               multiColor ? 
