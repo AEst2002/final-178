@@ -8,6 +8,8 @@ import Typography  from "@mui/joy/Typography";
 import Checkbox from "@mui/joy/Checkbox"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/joy/Button"
+import { Name, NameContainer } from './styles';
+import { Container } from '@mui/material';
 
 const configuration = new Configuration({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY
@@ -60,8 +62,9 @@ const Prompter = ({currentColors, setCurrentColors}) => {
     }
    
     return (
+        <Container>
+        <NameContainer><Name>chromAI</Name></NameContainer>
         <PromptContainer>
-          
           <Switch 
             startDecorator={<Typography>One Color</Typography>} 
             endDecorator={<Typography>Multiple Colors</Typography>}
@@ -95,6 +98,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                       type="text"
                       name="color"
                       label="color"
+                      size="small"
                       value={colorInput}
                       onChange={(e) => setColorInput(e.target.value)}/>
                     <h3>that</h3>
@@ -121,12 +125,13 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                       value={explanation}
                       onChange={(e) => setExplanation(!explanation)} 
                       label="Explain why the AI chose these colors"
+                      
                     />
                   </div>) :
                   <br/>
               }
                
-              { multiColor ? <Button type="submit">Generate colors</Button>
+              { multiColor ? <Button sx={{marginTop: 2}} type="submit">Generate colors</Button>
                            : <Button type="submit">Generate color</Button>
 
               }
@@ -145,6 +150,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
             }
             </ResultContainer>
         </PromptContainer>
+        </Container>
     );
 
 }
