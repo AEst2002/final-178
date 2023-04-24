@@ -18,7 +18,7 @@ const openai = new OpenAIApi(configuration);
 const Prompter = ({currentColors, setCurrentColors}) => {
     const [numberInput, setNumberInput] = useState("");
     const [colorInput, setColorInput] = useState("");
-    const [multiColor, setMultiColor] = useState(false);
+    const [multiColor, setMultiColor] = useState(true);
     const [adjectiveInput, setAdjectiveInput] = useState("");
     const [resultColors, setResultColors] = useState(null);
     const [resultExplanation, setResultExplanation] = useState();
@@ -65,6 +65,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
         <NameContainer><Name>chromAI</Name></NameContainer>
         <PromptContainer>
           <Switch 
+            checked
             startDecorator={<Typography>One Color</Typography>} 
             endDecorator={<Typography>Multiple Colors</Typography>}
             value={multiColor}
