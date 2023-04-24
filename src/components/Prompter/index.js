@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Configuration, OpenAIApi } from "openai";
 import ColorChip from '../ColorChip';
 import { ResultContainer } from './styles';
+import PuffLoader from "react-spinners/PuffLoader";
+
 
 
 const configuration = new Configuration({
@@ -17,8 +19,10 @@ const Prompter = ({currentColors, setCurrentColors}) => {
     const [resultColors, setResultColors] = useState(null);
     const [resultExplanation, setResultExplanation] = useState();
     const [explanation, setExplanation] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const onSubmit = async (event) => {
+        setLoading(true);
         let prompt = multiColor ? `Come up with hex codes for ${numberInput} colors that ${adjectiveInput}. List each color followed by a single space, including a space after the last color.` : `Come up with a hex code for a shade of ${colorInput} that ${adjectiveInput}. State the hex code by itself. `;
         if (multiColor && explanation) {
           prompt = prompt.concat(`Then, after listing all the colors, explain your choices, and delimit your explanation with a '\\'. Never place a '\\' anywhere else except to delimit your explanation. Always include '#' in your hex codes.`)
@@ -32,6 +36,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
             max_tokens: 400,
           });
           console.log(completion)
+          setLoading(false);
 
           if (explanation) {
             let resultArray = completion.data.choices[0].text.split('\\')
@@ -118,6 +123,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
 
               }
             </form>
+            { loading && <PuffLoader size={40} /> }
             { resultExplanation }
             <ResultContainer>
             {
