@@ -27,14 +27,14 @@ export const Name = styled.text`
     background: linear-gradient(to left, red, orange, yellow, green, blue, purple);
     -webkit-background-clip: text;
     color: transparent;
-    width: 12.9%
+    width: 12.9%;
 `
 
 export const PromptContainer = styled.div`
     width: 50%;
     /* padding: 10px; */
     line-height: 20px;
-    margin-top: 5px
+    margin-top: 5px;
 `
 
 // export const Input = styled.input.attrs({type: "text"})`
