@@ -7,6 +7,17 @@ export const ResultContainer = styled.div`
     flex-wrap: wrap;
 `
 
+export const Container = styled.div`
+    width: 100%;
+    border: 2px solid #C0C0C0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+
+    /* justify-content: center; */
+`
+
 export const NameContainer = styled.div`
     position: sticky;
     top: 0px;
@@ -32,7 +43,7 @@ export const Name = styled.text`
 
 export const PromptContainer = styled.div`
     width: 50%;
-    /* padding: 10px; */
+    padding: 10px;
     line-height: 20px;
     margin-top: 5px;
 `

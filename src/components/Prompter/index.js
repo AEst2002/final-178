@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Configuration, OpenAIApi } from "openai";
 import ColorChip from '../ColorChip';
-import { PromptContainer, ResultContainer } from './styles';
+import { PromptContainer, ResultContainer, Container} from './styles';
 import PuffLoader from "react-spinners/PuffLoader";
 import Switch from "@mui/joy/Switch";
 import Typography  from "@mui/joy/Typography";
@@ -9,7 +9,6 @@ import Checkbox from "@mui/joy/Checkbox"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/joy/Button"
 import { Name, NameContainer } from './styles';
-import { Container } from '@mui/material';
 
 const configuration = new Configuration({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY
