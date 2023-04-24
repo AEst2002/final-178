@@ -127,7 +127,8 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                         (element.includes('#') && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.slice(element.indexOf('#')).trim()}/>
                 ))) 
                 : 
-                (resultColors && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={resultColors.trim()}/>)
+                (resultColors && 
+                    <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={resultColors.trim()}/>)
             }
             </ResultContainer>
         </div>
