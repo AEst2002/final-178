@@ -40,7 +40,7 @@ export const Name = styled.text`
     background: linear-gradient(to left, red, orange, yellow, green, blue, purple);
     -webkit-background-clip: text;
     color: transparent;
-    width: 12.9%;
+    width: 10%;
 `
 
 export const PromptContainer = styled.div`
