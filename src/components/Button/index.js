@@ -1,10 +1,10 @@
 import React from 'react'
 import { ButtonText, Container } from './styles'
 
-const Button = ({text, color, textColor, width, height, style}) => {
+const Button = ({text, color, textColor, width, height, style, onClick}) => {
     return (
 
-        <Container color={color} width={width} height={height} style={{...style}}>
+        <Container onClick={onClick} color={color} width={width} height={height} style={{...style}}>
             <ButtonText textColor={textColor}>{text}</ButtonText>
         </Container>
     )

@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const RowContainer = styled.div`
     width: 100%;
     height: 130px;
+    min-height: 130px;
     background-color: ${props => props.color || '#000000'};
     font-weight: bold;
     display: flex;

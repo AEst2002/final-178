@@ -9,6 +9,7 @@ export const Container = styled.div`
     flex-direction: column;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    margin: 4px;
 `
 
 export const ChipText = styled.p`

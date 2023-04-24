@@ -9,4 +9,5 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    border: 1px solid #C0C0C0
 `

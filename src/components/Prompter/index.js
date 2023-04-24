@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Configuration, OpenAIApi } from "openai";
 import ColorChip from '../ColorChip';
+import { ResultContainer } from './styles';
 
 
 const configuration = new Configuration({
@@ -117,6 +118,8 @@ const Prompter = ({currentColors, setCurrentColors}) => {
 
               }
             </form>
+            { resultExplanation }
+            <ResultContainer>
             {
               multiColor ? 
                 (resultColors && 
@@ -126,7 +129,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                 : 
                 (resultColors && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={resultColors.trim()}/>)
             }
-            { resultExplanation }
+            </ResultContainer>
         </div>
     );
 
