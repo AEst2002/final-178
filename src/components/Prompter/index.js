@@ -3,8 +3,8 @@ import { Configuration, OpenAIApi } from "openai";
 import ColorChip from '../ColorChip';
 import { ResultContainer } from './styles';
 import PuffLoader from "react-spinners/PuffLoader";
-
-
+import Switch from "@mui/joy/Switch";
+import  Typography  from "@mui/joy/Typography";
 
 const configuration = new Configuration({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY
@@ -58,28 +58,30 @@ const Prompter = ({currentColors, setCurrentColors}) => {
    
     return (
         <div style={{width: "50%"}}>
-          <input
-              type="checkbox"
-              value={multiColor}
-              onChange={(e) => {setResultColors(null); setMultiColor(!multiColor); setExplanation(false); setResultExplanation()}} 
-            />
-            <span class="help-text">Multiple colors</span>
-            <h3>Generate</h3>
-            <form onSubmit={onSubmit}>
-              { multiColor ? (
-                  <div>
-                    <input
-                      type="text"
-                      name="number"
-                      placeholder="number"
-                      value={numberInput}
-                      onChange={(e) => setNumberInput(e.target.value)}/>
-                    <h3>colors that</h3>
-                    <p>"look like a sunset"</p>
-                    <p>"go well in a fourth grader's bedroom"</p>
-                    <p>"all contrast each other"</p>
-                    <p>"remind you of an 80s disco"</p>
-                  </div>
+          
+          <Switch 
+            startDecorator={<Typography>One Color</Typography>} 
+            endDecorator={<Typography>Multiple Colors</Typography>}
+            value={multiColor}
+            onChange={(e) => {setResultColors(null); setMultiColor(!multiColor); setExplanation(false); setResultExplanation()}} 
+          />
+          <br/>
+          <h3>Generate</h3>
+          <form onSubmit={onSubmit}>
+            { multiColor ? (
+                <div>
+                  <input
+                    type="text"
+                    name="number"
+                    placeholder="number"
+                    value={numberInput}
+                    onChange={(e) => setNumberInput(e.target.value)}/>
+                  <h3>colors that</h3>
+                  <p>"look like a sunset"</p>
+                  <p>"go well in a fourth grader's bedroom"</p>
+                  <p>"all contrast each other"</p>
+                  <p>"remind you of an 80s disco"</p>
+                </div>
                 ) :
                 (
                   <div>
