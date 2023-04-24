@@ -44,7 +44,7 @@ export const Name = styled.text`
 `
 
 export const PromptContainer = styled.div`
-    width: 50%;
+    width: 85%;
     padding: 10px;
     line-height: 20px;
     margin-top: 5px;
