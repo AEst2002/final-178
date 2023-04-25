@@ -15,6 +15,7 @@ export const ExamplePrompt = styled.div`
     top: 160px;
 `
 
+
 export const Container = styled.div`
     width: 100%;
     border: 2px solid #C0C0C0;
