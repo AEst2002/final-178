@@ -24,38 +24,40 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
                 <CircleButton style={{marginLeft: '10px'}} icon={Edit} />
             </NameContainer>
 
-            <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="droppable">
-                {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps}>
-                    {
-                        currentColors.length ? currentColors.map((color, index) => (
-                            <Draggable key={color.id} draggableId={color} index={index}>
-                            {(provided) => (
-                                <div
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    ref={provided.innerRef}
-                                >
-                                   <ColorRow 
-                                        index={index}
-                                        currentColors={currentColors} 
-                                        setCurrentColors={setCurrentColors} 
-                                        hex={color} 
-                                        favorites={favorites}
-                                        setFavorites={setFavorites}
-                                   />
-                                </div>
-                            )}
-                            </Draggable>
-                        )) : <p style={{float: 'right'}}>No colors (yet!)</p>}
+            {
+                currentColors.length ? 
+                    <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId="droppable">
+                        {(provided) => (
+                            <div ref={provided.innerRef} {...provided.droppableProps}>
+                            { currentColors.map((color, index) => (
+                                <Draggable key={color.id} draggableId={color} index={index}>
+                                    {(provided) => (
+                                        <div
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            ref={provided.innerRef}
+                                        >
+                                            <ColorRow 
+                                                index={index}
+                                                currentColors={currentColors} 
+                                                setCurrentColors={setCurrentColors} 
+                                                hex={color} 
+                                                favorites={favorites}
+                                                setFavorites={setFavorites}
+                                            />
+                                        </div>
+                                    )}
+                                </Draggable>
+                                ))          
+                            }
+                            {provided.placeholder} 
+                        </div> )}
+                    </Droppable>
+                    </DragDropContext>
+                : <p style={{float: 'right'}}>No colors (yet!)</p>
+        }
                     
-                    {provided.placeholder} 
-                    </div>
-                )}
-            </Droppable>
-
-            </DragDropContext>
             {currentColors.length > 0 && 
                 <ButtonPanel>
                     <Button color={'#00A2E8'} text={'SAVE'} />
