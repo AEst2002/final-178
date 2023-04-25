@@ -75,6 +75,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                     size="small"
                     label="number"
                     value={numberInput}
+                    required="true"
                     onChange={(e) => setNumberInput(e.target.value)}/>
                   <h3>colors that</h3>
                   <p>"look like a sunset"</p>
@@ -92,6 +93,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                       label="color"
                       size="small"
                       value={colorInput}
+                      required="true"
                       onChange={(e) => setColorInput(e.target.value)}/>
                     <h3>that</h3>
                     
