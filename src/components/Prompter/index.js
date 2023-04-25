@@ -61,7 +61,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
             startDecorator={<Typography>Multiple Colors</Typography>} 
             endDecorator={<Typography>One Color</Typography>}
             value={multiColor}
-            onChange={(e) => {setResultColors(null); setMultiColor(!multiColor); setExplanation(false); setResultExplanation()}} 
+            onChange={(e) => {setResultColors(null); setMultiColor(!multiColor); setExplanation(false); setResultExplanation(); setAdjectiveInput("")}} 
           />
           <br/>
           <form onSubmit={onSubmit}>
