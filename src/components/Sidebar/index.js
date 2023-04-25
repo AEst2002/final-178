@@ -31,7 +31,6 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
                         {(provided) => (
                             <div ref={provided.innerRef} {...provided.droppableProps}>
                                 { currentColors.map((color, index) => (
-                                    {provided.placeholder}
                                     <ColorRow 
                                         index={index}
                                         currentColors={currentColors} 
@@ -41,7 +40,7 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
                                         setFavorites={setFavorites}
                                     /> 
                                 ))}
-                                
+                                {provided.placeholder}
                             </div>       
                         )}
                     </Droppable>

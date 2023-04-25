@@ -58,7 +58,7 @@ const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors
 
     return (
         <Draggable draggableId={hex.id} index={index}>
-            {provided => (
+            {(provided, snapshot) => (
                 <RowContainer 
                     color={hex}
                     ref={provided.innerRef}
