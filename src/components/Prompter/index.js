@@ -28,7 +28,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
     const onSubmit = async (event) => {
         setLoading(true);
         let prompt = multiColor ? `Come up with hex codes for ${numberInput} colors that ${adjectiveInput}. List each color followed by a single space, including a space after the last color.` : `Come up with a hex code for a shade of ${colorInput} that ${adjectiveInput}. State the hex code by itself. `;
-        if (multiColor && explanation) {
+        if (multiColor) {
           prompt = prompt.concat(`Then, after listing all the colors, explain your choices, and delimit your explanation with a '\\'. Never place a '\\' anywhere else except to delimit your explanation. Always include '#' in your hex codes.`)
         }
         event.preventDefault();
@@ -42,17 +42,10 @@ const Prompter = ({currentColors, setCurrentColors}) => {
           console.log(completion)
           setLoading(false);
 
-          if (explanation) {
-            let resultArray = completion.data.choices[0].text.split('\\')
-            setResultColors(resultArray[0])
-            setResultExplanation(resultArray[1])
+          let resultArray = completion.data.choices[0].text.split('\\')
+          setResultColors(resultArray[0]);
+          setResultExplanation(resultArray[1])
 
-          }
-
-          else {
-            setResultColors(completion.data.choices[0].text)
-          }
-         
     
         } catch(error) {
           console.error(error)
@@ -136,7 +129,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
               }
             </form>
             { loading && <PuffLoader size={40} /> }
-            <p> {resultExplanation} </p>
+            <p> {explanation && resultExplanation} </p>
             <ResultContainer>
             {
               multiColor ? 
