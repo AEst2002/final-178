@@ -7,7 +7,11 @@ import Switch from "@mui/joy/Switch";
 import Typography  from "@mui/joy/Typography";
 import Checkbox from "@mui/joy/Checkbox"
 import TextField from "@mui/material/TextField"
+import Accordion from "@mui/material/Accordion"
+import AccordionSummary from "@mui/material/AccordionSummary"
+import AccordionDetails from "@mui/material/AccordionDetails"
 import Button from "@mui/joy/Button"
+import { InfoOutlined } from '@mui/icons-material';
 
 const configuration = new Configuration({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY
@@ -76,12 +80,6 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                     required="true"
                     onChange={(e) => setNumberInput(e.target.value)}/>
                   <h3>colors that</h3>
-                  <ExamplePrompt>
-                    <p>"look like a sunset"</p>
-                    <p>"go well in a fourth grader's bedroom"</p>
-                    <p>"all contrast each other"</p>
-                    <p>"remind you of an 80s disco"</p>
-                  </ExamplePrompt>
                 </div>
                 ) :
                 (
@@ -96,15 +94,28 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                       required="true"
                       onChange={(e) => setColorInput(e.target.value)}/>
                     <h3>that</h3>
-                    <ExamplePrompt>
-                      <p>"goes well with pale pink"</p>
-                      <p>"looks like the sky"</p>
-                      <p>"feels calming"</p>
-                      <p>"contrasts with #32A852" </p>
-                    </ExamplePrompt>
                   </div>
                 )}
-              
+              <Accordion sx={{width: "250px", boxShadow: 0, borderRadius: "10px", border: 1, borderColor: "#3b86cb", borderWidth: "2px"}}>
+                <AccordionSummary>
+                  <InfoOutlined color="info" sx={{marginRight: "5px"}}/>
+                  <Typography style={{color: "#3b86cb"}}>What can I ask?</Typography>
+                </AccordionSummary>
+                { multiColor ? 
+                <AccordionDetails>
+                    <p>"look like a sunset"</p>
+                    <p>"go well in a fourth grader's bedroom"</p>
+                    <p>"all contrast each other"</p>
+                    <p>"remind you of an 80s disco"</p>
+                </AccordionDetails>
+                : 
+                <AccordionDetails>
+                    <p>"goes well with pale pink"</p>
+                    <p>"looks like the sky"</p>
+                    <p>"feels calming"</p>
+                    <p>"contrasts with #32A852" </p>
+                </AccordionDetails>}
+              </Accordion>
               <TextField
                   name="adjective"
                   multiline
