@@ -7,6 +7,14 @@ export const ResultContainer = styled.div`
     flex-wrap: wrap;
 `
 
+export const ExamplePrompt = styled.div`
+    font-weight: lighter; 
+    font-style: italic;
+    position: absolute;
+    left: 250px;
+    top: 160px;
+`
+
 export const Container = styled.div`
     width: 100%;
     border: 2px solid #C0C0C0;
@@ -15,8 +23,6 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     overflow: scroll;
-
-    /* justify-content: center; */
 `
 
 export const NameContainer = styled.div`
@@ -38,6 +44,7 @@ export const NameContainer = styled.div`
 export const Name = styled.text`
     background: linear-gradient(to left, red, orange, yellow, green, blue, purple);
     -webkit-background-clip: text;
+    background-clip: text;
     color: transparent;
     width: 100px;
 `
@@ -47,11 +54,4 @@ export const PromptContainer = styled.div`
     padding: 10px;
     line-height: 20px;
     margin-top: 5px;
-`
-
-// export const Input = styled.input.attrs({type: "text"})`
-export const Input = styled.input`
-    border-radius: 3px;
-    padding: 4px;
-
 `
