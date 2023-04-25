@@ -30,29 +30,20 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
                     <Droppable droppableId="droppable">
                         {(provided) => (
                             <div ref={provided.innerRef} {...provided.droppableProps}>
-                            { currentColors.map((color, index) => (
-                                <Draggable key={color.id} draggableId={color} index={index}>
-                                    {(provided) => (
-                                        <div
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            ref={provided.innerRef}
-                                        >
-                                            <ColorRow 
-                                                index={index}
-                                                currentColors={currentColors} 
-                                                setCurrentColors={setCurrentColors} 
-                                                hex={color} 
-                                                favorites={favorites}
-                                                setFavorites={setFavorites}
-                                            />
-                                        </div>
-                                    )}
-                                </Draggable>
-                                ))          
-                            }
-                            {provided.placeholder} 
-                        </div> )}
+                                { currentColors.map((color, index) => (
+                                    {provided.placeholder}
+                                    <ColorRow 
+                                        index={index}
+                                        currentColors={currentColors} 
+                                        setCurrentColors={setCurrentColors} 
+                                        hex={color} 
+                                        favorites={favorites}
+                                        setFavorites={setFavorites}
+                                    /> 
+                                ))}
+                                
+                            </div>       
+                        )}
                     </Droppable>
                     </DragDropContext>
                 : <p style={{float: 'right'}}>No colors (yet!)</p>

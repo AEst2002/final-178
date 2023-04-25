@@ -13,6 +13,7 @@ import textColor from '../../util/textColor'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import { Snackbar } from '@mui/material'
+import { Draggable } from 'react-beautiful-dnd'
 
 const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors, index}) => {
     const [innerColor, setInnerColor] = useState('#000000')
@@ -56,28 +57,35 @@ const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors
     }
 
     return (
-        <RowContainer color={hex}>
-            <CircleButton onClick={handleDelete} style={{position: 'absolute', top: '10px', left: '10px'}} icon={Trash} />
-            <CircleButton onClick={handleFavorite} style={{position: 'absolute', top: '10px', right: '10px'}} icon={favorites.includes(hex) ? HeartFilled : HeartEmpty}/>
-            {index !== 0 && <Chevron onClick={() => handleMove('up')} style={{top: '45px', right: '10px'}} src={innerColor === '#000000' ? UpBlack : UpWhite}/>}
-            {index !== (currentColors.length - 1) && <Chevron onClick={() => handleMove('down')} style={{top: '90px', right: '10px'}} src={innerColor === '#000000' ? DownBlack : DownWhite}/>}
-            <RowText fontSize={'30px'} color={innerColor} id={hex}>{hex}            
-                <CopyToClipboard style={{cursor: 'pointer', marginLeft: "7px"}} text={hex} onCopy={() => setCopied(true)}>
-                    <ContentCopyOutlinedIcon />
-                </CopyToClipboard>
-            </RowText>
-            <RowText fontSize={'15px'} color={innerColor}>{ntc.name(hex)[1]}</RowText>
-            <Snackbar
-                message="Copied to clipboard!"
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                autoHideDuration={1500}
-                onClose={() => setCopied(false)}
-                open={copied}
-            />
-        </RowContainer>
+        <Draggable draggableId={hex.id} index={index}>
+            {provided => (
+                <RowContainer 
+                    color={hex}
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                >
+                    <CircleButton onClick={handleDelete} style={{position: 'absolute', top: '10px', left: '10px'}} icon={Trash} />
+                    <CircleButton onClick={handleFavorite} style={{position: 'absolute', top: '10px', right: '10px'}} icon={favorites.includes(hex) ? HeartFilled : HeartEmpty}/>
+                    {index !== 0 && <Chevron onClick={() => handleMove('up')} style={{top: '45px', right: '10px'}} src={innerColor === '#000000' ? UpBlack : UpWhite}/>}
+                    {index !== (currentColors.length - 1) && <Chevron onClick={() => handleMove('down')} style={{top: '90px', right: '10px'}} src={innerColor === '#000000' ? DownBlack : DownWhite}/>}
+                    <RowText fontSize={'30px'} color={innerColor} id={hex}>{hex}            
+                        <CopyToClipboard style={{cursor: 'pointer', marginLeft: "7px"}} text={hex} onCopy={() => setCopied(true)}>
+                            <ContentCopyOutlinedIcon />
+                        </CopyToClipboard>
+                    </RowText>
+                    <RowText fontSize={'15px'} color={innerColor}>{ntc.name(hex)[1]}</RowText>
+                    <Snackbar
+                        message="Copied to clipboard!"
+                        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                        autoHideDuration={1500}
+                        onClose={() => setCopied(false)}
+                        open={copied}
+                    />
+                </RowContainer>
+            )}
+        </Draggable>
     )
-
-
 }
 
 export default ColorRow
