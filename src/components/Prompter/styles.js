@@ -27,20 +27,19 @@ export const NameContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: left;
-    border-bottom: 2px solid #C0C0C0;
+    border-bottom: 1px solid #C0C0C0;
     font-weight: bold;
     font-size: 25px;
     background-color: white;
     z-index: 5;
-    padding-left: 5px;
+    padding-left: 10px;
 `
-// export const Name = styled(NameContainer)`
 
 export const Name = styled.text`
     background: linear-gradient(to left, red, orange, yellow, green, blue, purple);
     -webkit-background-clip: text;
     color: transparent;
-    width: 10%;
+    width: 100px;
 `
 
 export const PromptContainer = styled.div`

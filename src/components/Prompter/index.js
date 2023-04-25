@@ -55,7 +55,6 @@ const Prompter = ({currentColors, setCurrentColors}) => {
    
     return (
         <Container>
-        <NameContainer><Name>chromAI</Name></NameContainer>
         <PromptContainer>
           <Switch 
             startDecorator={<Typography>Multiple Colors</Typography>} 
