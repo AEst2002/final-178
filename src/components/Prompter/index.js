@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Configuration, OpenAIApi } from "openai";
 import ColorChip from '../ColorChip';
-import { PromptContainer, ResultContainer, Container} from './styles';
+import { PromptContainer, ResultContainer, Container, ExamplePrompt } from './styles';
 import PuffLoader from "react-spinners/PuffLoader";
 import Switch from "@mui/joy/Switch";
 import Typography  from "@mui/joy/Typography";
 import Checkbox from "@mui/joy/Checkbox"
 import TextField from "@mui/material/TextField"
 import Button from "@mui/joy/Button"
-import { Name, NameContainer } from './styles';
 
 const configuration = new Configuration({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY
@@ -28,7 +27,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
     const onSubmit = async (event) => {
         setLoading(true);
         let prompt = multiColor ? `Come up with hex codes for ${numberInput} colors that ${adjectiveInput}. List each color followed by a single space, including a space after the last color.` : `Come up with a hex code for a shade of ${colorInput} that ${adjectiveInput}. State the hex code by itself. `;
-        if (multiColor && explanation) {
+        if (multiColor) {
           prompt = prompt.concat(`Then, after listing all the colors, explain your choices, and delimit your explanation with a '\\'. Never place a '\\' anywhere else except to delimit your explanation. Always include '#' in your hex codes.`)
         }
         event.preventDefault();
@@ -42,17 +41,10 @@ const Prompter = ({currentColors, setCurrentColors}) => {
           console.log(completion)
           setLoading(false);
 
-          if (explanation) {
-            let resultArray = completion.data.choices[0].text.split('\\')
-            setResultColors(resultArray[0])
-            setResultExplanation(resultArray[1])
+          let resultArray = completion.data.choices[0].text.split('\\')
+          setResultColors(resultArray[0]);
+          setResultExplanation(resultArray[1])
 
-          }
-
-          else {
-            setResultColors(completion.data.choices[0].text)
-          }
-         
     
         } catch(error) {
           console.error(error)
@@ -62,14 +54,12 @@ const Prompter = ({currentColors, setCurrentColors}) => {
    
     return (
         <Container>
-        <NameContainer><Name>chromAI</Name></NameContainer>
         <PromptContainer>
           <Switch 
-            checked
-            startDecorator={<Typography>One Color</Typography>} 
-            endDecorator={<Typography>Multiple Colors</Typography>}
+            startDecorator={<Typography>Multiple Colors</Typography>} 
+            endDecorator={<Typography>One Color</Typography>}
             value={multiColor}
-            onChange={(e) => {setResultColors(null); setMultiColor(!multiColor); setExplanation(false); setResultExplanation()}} 
+            onChange={(e) => {setResultColors(null); setMultiColor(!multiColor); setExplanation(false); setResultExplanation(); setAdjectiveInput("")}} 
           />
           <br/>
           <form onSubmit={onSubmit}>
@@ -83,12 +73,15 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                     size="small"
                     label="number"
                     value={numberInput}
+                    required="true"
                     onChange={(e) => setNumberInput(e.target.value)}/>
                   <h3>colors that</h3>
-                  <p>"look like a sunset"</p>
-                  <p>"go well in a fourth grader's bedroom"</p>
-                  <p>"all contrast each other"</p>
-                  <p>"remind you of an 80s disco"</p>
+                  <ExamplePrompt>
+                    <p>"look like a sunset"</p>
+                    <p>"go well in a fourth grader's bedroom"</p>
+                    <p>"all contrast each other"</p>
+                    <p>"remind you of an 80s disco"</p>
+                  </ExamplePrompt>
                 </div>
                 ) :
                 (
@@ -100,13 +93,15 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                       label="color"
                       size="small"
                       value={colorInput}
+                      required="true"
                       onChange={(e) => setColorInput(e.target.value)}/>
                     <h3>that</h3>
-                    
-                    <p>"goes well with pale pink"</p>
-                    <p>"looks like the sky"</p>
-                    <p>"feels calming"</p>
-                    <p>"contrasts with #32A852" </p>
+                    <ExamplePrompt>
+                      <p>"goes well with pale pink"</p>
+                      <p>"looks like the sky"</p>
+                      <p>"feels calming"</p>
+                      <p>"contrasts with #32A852" </p>
+                    </ExamplePrompt>
                   </div>
                 )}
               
@@ -137,7 +132,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
               }
             </form>
             { loading && <PuffLoader size={40} /> }
-            <p> {resultExplanation} </p>
+            <p> {explanation && resultExplanation} </p>
             <ResultContainer>
             {
               multiColor ? 

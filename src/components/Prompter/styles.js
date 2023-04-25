@@ -7,6 +7,14 @@ export const ResultContainer = styled.div`
     flex-wrap: wrap;
 `
 
+export const ExamplePrompt = styled.div`
+    font-weight: lighter; 
+    font-style: italic;
+    position: absolute;
+    left: 250px;
+    top: 160px;
+`
+
 export const Container = styled.div`
     width: 100%;
     border: 2px solid #C0C0C0;
@@ -15,8 +23,6 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     overflow: scroll;
-
-    /* justify-content: center; */
 `
 
 export const NameContainer = styled.div`
@@ -27,20 +33,20 @@ export const NameContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: left;
-    border-bottom: 2px solid #C0C0C0;
+    border-bottom: 1px solid #C0C0C0;
     font-weight: bold;
     font-size: 25px;
     background-color: white;
     z-index: 5;
-    padding-left: 5px;
+    padding-left: 10px;
 `
-// export const Name = styled(NameContainer)`
 
 export const Name = styled.text`
     background: linear-gradient(to left, red, orange, yellow, green, blue, purple);
     -webkit-background-clip: text;
+    background-clip: text;
     color: transparent;
-    width: 10%;
+    width: 100px;
 `
 
 export const PromptContainer = styled.div`
@@ -48,11 +54,4 @@ export const PromptContainer = styled.div`
     padding: 10px;
     line-height: 20px;
     margin-top: 5px;
-`
-
-// export const Input = styled.input.attrs({type: "text"})`
-export const Input = styled.input`
-    border-radius: 3px;
-    padding: 4px;
-
 `
