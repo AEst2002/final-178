@@ -16,7 +16,7 @@ import { Snackbar } from '@mui/material'
 
 const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors, index}) => {
     const [innerColor, setInnerColor] = useState('#000000')
-    const [copied, setCopied] = useState('false')
+    const [copied, setCopied] = useState(false)
     useEffect(() => {
         setInnerColor(textColor(hex))
     }, [hex])
@@ -68,9 +68,9 @@ const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors
             </RowText>
             <RowText fontSize={'15px'} color={innerColor}>{ntc.name(hex)[1]}</RowText>
             <Snackbar
-                message="Copied to clibboard"
+                message="Copied to clipboard!"
                 anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                autoHideDuration={2000}
+                autoHideDuration={1500}
                 onClose={() => setCopied(false)}
                 open={copied}
             />
