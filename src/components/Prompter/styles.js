@@ -26,29 +26,7 @@ export const Container = styled.div`
     overflow: scroll;
 `
 
-export const NameContainer = styled.div`
-    position: sticky;
-    top: 0px;
-    width: 100%;
-    min-height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    border-bottom: 1px solid #C0C0C0;
-    font-weight: bold;
-    font-size: 25px;
-    background-color: white;
-    z-index: 5;
-    padding-left: 10px;
-`
 
-export const Name = styled.text`
-    background: linear-gradient(to left, red, orange, yellow, green, blue, purple);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    width: 100px;
-`
 
 export const PromptContainer = styled.div`
     width: 85%;

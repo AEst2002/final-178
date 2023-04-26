@@ -16,34 +16,42 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 
-const Main = ({favorites, setFavorites, setCurrentColors, currentColors}) => {
-  const [colorInput, setColorInput] = useState("");
-  const [result, setResult] = useState();
+const Main = ({editingId, setEditingId, favorites, setFavorites}) => {
+  const [currentColors, setCurrentColors] = useState([])
+  // const [colorInput, setColorInput] = useState("");
+  // const [result, setResult] = useState();
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    try {
+  // const onSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
 
-      const completion = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: `Come up with a hex code for a light shade of ${colorInput}`,
-        temperature: 0.6,
-      });
+  //     const completion = await openai.createCompletion({
+  //       model: "text-davinci-003",
+  //       prompt: `Come up with a hex code for a light shade of ${colorInput}`,
+  //       temperature: 0.6,
+  //     });
 
-      setResult(completion.data.choices[0].text);
-      // setAnimalInput("");
-    } catch(error) {
-      console.error(error);
-      alert(error.message);
-    }
-  }
+  //     setResult(completion.data.choices[0].text);
+  //     // setAnimalInput("");
+  //   } catch(error) {
+  //     console.error(error);
+  //     alert(error.message);
+  //   }
+  // }
 
   return (
     <div>
       <Header />
         <Container>
           <Prompter currentColors={currentColors} setCurrentColors={setCurrentColors}/>
-          <Sidebar favorites={favorites} setFavorites={setFavorites} setCurrentColors={setCurrentColors} currentColors={currentColors}/>
+          <Sidebar 
+            setEditingId={setEditingId} 
+            editingId={editingId} 
+            favorites={favorites} 
+            setFavorites={setFavorites} 
+            setCurrentColors={setCurrentColors} 
+            currentColors={currentColors}
+          />
         </Container>
     </div>
     

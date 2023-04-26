@@ -26,6 +26,13 @@ export const NameContainer = styled.div`
     z-index: 5;
 `
 
+export const NameEditor = styled.input`
+    border: none;
+    font-weight: bold;
+    font-size: 25px;
+    max-width: 500px;
+`
+
 export const ButtonPanel = styled.div`
     position: sticky;
     min-height: 65px;

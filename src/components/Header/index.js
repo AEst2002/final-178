@@ -1,4 +1,4 @@
-import { NameContainer, Name } from "../Prompter/styles"
+import { NameContainer, Name } from "./styles"
 
 const Header = () => {
     return (

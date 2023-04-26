@@ -3,10 +3,15 @@ import './App.css';
 import Main from './containers/Main';
 
 const App = () => {
-  const [currentColors, setCurrentColors] = useState([])
   const [favorites, setFavorites] = useState([])
+  const [editingId, setEditingId] = useState(null)
   return (
-    <Main setCurrentColors={setCurrentColors} currentColors={currentColors} favorites={favorites} setFavorites={setFavorites}/>
+    <Main 
+      editingId={editingId}
+      setEditingId={setEditingId}
+      favorites={favorites} 
+      setFavorites={setFavorites}/>
+
   );
 }
 
