@@ -23,7 +23,7 @@ export const Container = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+    overflow: auto;
 `
 
 
@@ -33,4 +33,14 @@ export const PromptContainer = styled.div`
     padding: 10px;
     line-height: 20px;
     margin-top: 5px;
+`
+
+export const ExitLink = styled.a`
+    margin-left: 10px;
+    margin-top: 10px;
+    color: #373737;
+    :visited{
+        color: #373737;
+    }
+    
 `

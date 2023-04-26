@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const NameContainer = styled.div`
-    position: sticky;
+    /* position: absolute; */
     top: 0px;
     width: 100vw;
     min-height: 40px;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Configuration, OpenAIApi } from "openai";
 import ColorChip from '../ColorChip';
-import { PromptContainer, ResultContainer, Container, ExamplePrompt } from './styles';
+import { PromptContainer, ResultContainer, Container, ExitLink } from './styles';
 import PuffLoader from "react-spinners/PuffLoader";
 import Switch from "@mui/joy/Switch";
 import Typography  from "@mui/joy/Typography";
@@ -58,105 +58,106 @@ const Prompter = ({currentColors, setCurrentColors}) => {
    
     return (
         <Container>
-        <PromptContainer>
-          <Switch 
-            startDecorator={<Typography>Multiple Colors</Typography>} 
-            endDecorator={<Typography>One Color</Typography>}
-            value={multiColor}
-            onChange={(e) => {setResultColors(null); setMultiColor(!multiColor); setExplanation(false); setResultExplanation(); setAdjectiveInput("")}} 
-          />
-          <br/>
-          <form onSubmit={onSubmit}>
-            { multiColor ? (
-                <div>
-                  <h3>Generate</h3>
-                  <TextField
-                    type="text"
-                    name="number"
-                    variant="outlined"
-                    size="small"
-                    label="number"
-                    value={numberInput}
-                    required="true"
-                    onChange={(e) => setNumberInput(e.target.value)}/>
-                  <h3>colors that</h3>
-                </div>
-                ) :
-                (
+          <ExitLink href='/'>Exit without saving</ExitLink>
+          <PromptContainer>
+            <Switch 
+              startDecorator={<Typography>Multiple Colors</Typography>} 
+              endDecorator={<Typography>One Color</Typography>}
+              value={multiColor}
+              onChange={(e) => {setResultColors(null); setMultiColor(!multiColor); setExplanation(false); setResultExplanation(); setAdjectiveInput("")}} 
+            />
+            <br/>
+            <form onSubmit={onSubmit}>
+              { multiColor ? (
                   <div>
-                    <h3>Generate a shade of</h3>
+                    <h3>Generate</h3>
                     <TextField
                       type="text"
-                      name="color"
-                      label="color"
+                      name="number"
+                      variant="outlined"
                       size="small"
-                      value={colorInput}
+                      label="number"
+                      value={numberInput}
                       required="true"
-                      onChange={(e) => setColorInput(e.target.value)}/>
-                    <h3>that</h3>
+                      onChange={(e) => setNumberInput(e.target.value)}/>
+                    <h3>colors that</h3>
                   </div>
-                )}
-              <Accordion sx={{width: "250px", boxShadow: 0, borderRadius: "10px", border: 1, borderColor: "#3b86cb", borderWidth: "2px"}}>
-                <AccordionSummary>
-                  <InfoOutlined color="info" sx={{marginRight: "5px"}}/>
-                  <Typography style={{color: "#3b86cb"}}>What can I ask?</Typography>
-                </AccordionSummary>
+                  ) :
+                  (
+                    <div>
+                      <h3>Generate a shade of</h3>
+                      <TextField
+                        type="text"
+                        name="color"
+                        label="color"
+                        size="small"
+                        value={colorInput}
+                        required="true"
+                        onChange={(e) => setColorInput(e.target.value)}/>
+                      <h3>that</h3>
+                    </div>
+                  )}
+                <Accordion sx={{width: "250px", boxShadow: 0, borderRadius: "10px", border: 1, borderColor: "#3b86cb", borderWidth: "2px"}}>
+                  <AccordionSummary>
+                    <InfoOutlined color="info" sx={{marginRight: "5px"}}/>
+                    <Typography style={{color: "#3b86cb"}}>What can I ask?</Typography>
+                  </AccordionSummary>
+                  { multiColor ? 
+                  <AccordionDetails>
+                      <p>"look like a sunset"</p>
+                      <p>"go well in a fourth grader's bedroom"</p>
+                      <p>"all contrast each other"</p>
+                      <p>"remind you of an 80s disco"</p>
+                  </AccordionDetails>
+                  : 
+                  <AccordionDetails>
+                      <p>"goes well with pale pink"</p>
+                      <p>"looks like the sky"</p>
+                      <p>"feels calming"</p>
+                      <p>"contrasts with #32A852" </p>
+                  </AccordionDetails>}
+                </Accordion>
+                <TextField
+                    name="adjective"
+                    multiline
+                    label="your prompt here!"
+                    value={adjectiveInput}
+                    margin="normal"
+                    onChange={(e) => setAdjectiveInput(e.target.value)}
+                />
+                <br/>
                 { multiColor ? 
-                <AccordionDetails>
-                    <p>"look like a sunset"</p>
-                    <p>"go well in a fourth grader's bedroom"</p>
-                    <p>"all contrast each other"</p>
-                    <p>"remind you of an 80s disco"</p>
-                </AccordionDetails>
-                : 
-                <AccordionDetails>
-                    <p>"goes well with pale pink"</p>
-                    <p>"looks like the sky"</p>
-                    <p>"feels calming"</p>
-                    <p>"contrasts with #32A852" </p>
-                </AccordionDetails>}
-              </Accordion>
-              <TextField
-                  name="adjective"
-                  multiline
-                  label="your prompt here!"
-                  value={adjectiveInput}
-                  margin="normal"
-                  onChange={(e) => setAdjectiveInput(e.target.value)}
-              />
-              <br/>
-              { multiColor ? 
-                (<div>
-                    <Checkbox
-                      value={explanation}
-                      onChange={(e) => setExplanation(!explanation)} 
-                      label="Explain why the AI chose these colors"
-                      
-                    />
-                  </div>) :
-                  <br/>
-              }
-               
-              { multiColor ? <Button sx={{marginTop: 2}} type="submit">Generate colors</Button>
-                           : <Button type="submit">Generate color</Button>
+                  (<div>
+                      <Checkbox
+                        value={explanation}
+                        onChange={(e) => setExplanation(!explanation)} 
+                        label="Explain why the AI chose these colors"
+                        
+                      />
+                    </div>) :
+                    <br/>
+                }
+                
+                { multiColor ? <Button sx={{marginTop: 2}} type="submit">Generate colors</Button>
+                            : <Button type="submit">Generate color</Button>
 
+                }
+              </form>
+              { loading && <PuffLoader size={40} /> }
+              <p> {explanation && resultExplanation} </p>
+              <ResultContainer>
+              {
+                multiColor ? 
+                  (resultColors && 
+                      resultColors.split(" ").map(element => 
+                          (element.includes('#') && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.slice(element.indexOf('#')).trim()}/>
+                  ))) 
+                  : 
+                  (resultColors && 
+                      <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={resultColors.trim()}/>)
               }
-            </form>
-            { loading && <PuffLoader size={40} /> }
-            <p> {explanation && resultExplanation} </p>
-            <ResultContainer>
-            {
-              multiColor ? 
-                (resultColors && 
-                    resultColors.split(" ").map(element => 
-                        (element.includes('#') && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.slice(element.indexOf('#')).trim()}/>
-                ))) 
-                : 
-                (resultColors && 
-                    <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={resultColors.trim()}/>)
-            }
-            </ResultContainer>
-        </PromptContainer>
+              </ResultContainer>
+          </PromptContainer>
         </Container>
     );
 

@@ -7,7 +7,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: scroll;
+    overflow: auto;
     /* justify-content: center; */
 `
 
@@ -23,7 +23,7 @@ export const NameContainer = styled.div`
     font-weight: bold;
     font-size: 25px;
     background-color: white;
-    z-index: 5;
+    z-index: 4;
 `
 
 export const NameEditor = styled.input`
@@ -35,7 +35,7 @@ export const NameEditor = styled.input`
 
 export const ButtonPanel = styled.div`
     position: sticky;
-    min-height: 65px;
+    min-height: 110px;
     width: 100%;
     bottom: 0px;
     background-color: white;
@@ -43,5 +43,5 @@ export const ButtonPanel = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-
+    flex-wrap: wrap;
 `
