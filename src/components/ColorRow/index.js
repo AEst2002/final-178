@@ -13,6 +13,8 @@ import textColor from '../../util/textColor'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import { Snackbar } from '@mui/material'
+import {useSortable} from '@dnd-kit/sortable'
+import {CSS} from '@dnd-kit/utilities'
 
 const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors, index}) => {
     const [innerColor, setInnerColor] = useState('#000000')
@@ -20,6 +22,19 @@ const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors
     useEffect(() => {
         setInnerColor(textColor(hex))
     }, [hex])
+
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition
+    } = useSortable({id: hex.id})
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition
+    }
 
     const handleDelete = () => {
         // need to copy state and change it because .splice() modifies array in-place.
@@ -56,7 +71,7 @@ const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors
     }
 
     return (
-        <RowContainer color={hex}>
+        <RowContainer  ref={setNodeRef} style={style} {...attributes} {...listeners} color={hex}>
             <CircleButton onClick={handleDelete} style={{position: 'absolute', top: '10px', left: '10px'}} icon={Trash} />
             <CircleButton onClick={handleFavorite} style={{position: 'absolute', top: '10px', right: '10px'}} icon={favorites.includes(hex) ? HeartFilled : HeartEmpty}/>
             {index !== 0 && <Chevron onClick={() => handleMove('up')} style={{top: '45px', right: '10px'}} src={innerColor === '#000000' ? UpBlack : UpWhite}/>}

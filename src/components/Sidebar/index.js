@@ -4,7 +4,8 @@ import ColorRow from '../ColorRow'
 import { ButtonPanel, Container, NameContainer } from './styles'
 import Edit from '../../assets/Edit.png'
 import Button from '../Button'
-
+import {DndContext, closestCenter} from '@dnd-kit/core';
+import {arrayMove, SortableContext, verticalListSortingStrategy  } from '@dnd-kit/sortable'
   
 const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => {
     return (
@@ -13,7 +14,33 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
                 Palette #1
                 <CircleButton style={{marginLeft: '10px'}} icon={Edit} />
             </NameContainer>
-            {currentColors.length ? currentColors.map((color, index) => {
+            <DndContext
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+            >
+                <SortableContext
+                    items={currentColors}
+                    strategy={verticalListSortingStrategy}
+                >
+                    {currentColors.map((color, index) => {
+                        return( 
+                            <ColorRow 
+                                key={color}
+                                id={color}
+                                index={index} 
+                                currentColors={currentColors} 
+                                setCurrentColors={setCurrentColors} 
+                                hex={color} 
+                                favorites={favorites}
+                                setFavorites={setFavorites}
+                            />
+                        )
+                    }
+                    )}
+                </SortableContext>
+              
+            </DndContext>
+            {/* {currentColors.length ? currentColors.map((color, index) => {
                 return( 
                     <ColorRow 
                         index={index} 
@@ -24,7 +51,7 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
                         setFavorites={setFavorites}
                     />
                 )
-            }) : <p style={{float: 'right'}}>No colors (yet!)</p>}
+            }) : <p style={{float: 'right'}}>No colors (yet!)</p>} */}
             {currentColors.length > 0 && 
                 <ButtonPanel>
                     <Button color={'#00A2E8'} text={'SAVE'} />
@@ -33,7 +60,11 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
             }
 
         </Container>
-    )
+    );
+
+    function handleDragEnd(event) {
+        console.log("drag end called")
+    }
    
 }
 
