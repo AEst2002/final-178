@@ -58,7 +58,6 @@ const Prompter = ({currentColors, setCurrentColors}) => {
    
     return (
         <Container>
-          <ExitLink href='/'>Exit without saving</ExitLink>
           <PromptContainer>
             <Switch 
               startDecorator={<Typography>Multiple Colors</Typography>} 
