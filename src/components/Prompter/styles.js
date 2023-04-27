@@ -18,12 +18,13 @@ export const ExamplePrompt = styled.div`
 
 export const Container = styled.div`
     width: 100%;
+    height: 100vh;
     border: 2px solid #C0C0C0;
     border-right: none;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     overflow: auto;
+    margin-bottom: 100px;
 `
 
 
