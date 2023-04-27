@@ -71,11 +71,13 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                   <div>
                     <h3>Generate</h3>
                     <TextField
-                      type="text"
+                      sx={{width: "250px"}}
+                      type="number"
                       name="number"
                       variant="outlined"
                       size="small"
                       label="number"
+                      inputProps={{ min: 1, max: 21 }} 
                       value={numberInput}
                       required="true"
                       onChange={(e) => setNumberInput(e.target.value)}/>
@@ -86,6 +88,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                     <div>
                       <h3>Generate a shade of</h3>
                       <TextField
+                        sx={{width: "250px"}}
                         type="text"
                         name="color"
                         label="color"
@@ -117,6 +120,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                   </AccordionDetails>}
                 </Accordion>
                 <TextField
+                    sx={{width: "250px"}}
                     name="adjective"
                     multiline
                     label="your prompt here!"
