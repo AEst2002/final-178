@@ -6,8 +6,7 @@ import Edit from '../../assets/Edit.png'
 import Check from '../../assets/Check.png'
 import Button from '../Button'
 import { useParams, useNavigate } from "react-router-dom";
-
-
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
   
 const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => {
     const navigate = useNavigate()
@@ -61,6 +60,14 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
 
     console.log(localStorage.getItem("palettes") ? JSON.parse(localStorage.getItem("palettes")) : 'waiting')
 
+    const handleDragEnd = (result) => {
+        if (!result.destination) return;
+        const newColors = Array.from(currentColors);
+        const [reorderedItem] = newColors.splice(result.source.index, 1);
+        newColors.splice(result.destination.index, 0, reorderedItem);
+        setCurrentColors(newColors)
+    }
+
     return (
         <Container>
             <NameContainer>
@@ -68,18 +75,37 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
                 {/* <NameEditor id={"editor"} autofocus value={paletteName}/> */}
                 <CircleButton style={{marginLeft: '10px'}} icon={nameEdit ? Check : Edit} onClick={() => {paletteName.length > 0 && setNameEdit(!nameEdit)}} />
             </NameContainer>
-            {currentColors.length ? currentColors.map((color, index) => {
-                return( 
-                    <ColorRow 
-                        index={index} 
-                        currentColors={currentColors} 
-                        setCurrentColors={setCurrentColors} 
-                        hex={color} 
-                        favorites={favorites}
-                        setFavorites={setFavorites}
-                    />
-                )
-            }) : <p style={{float: 'right'}}>No colors (yet!)</p>}
+            <DragDropContext style={{width: '100%'}} onDragEnd={handleDragEnd}>
+                <Droppable style={{width: '100%'}} droppableId="droppable">
+                {(provided) => (
+                    <div style={{width: '100%'}} ref={provided.innerRef} {...provided.droppableProps}>
+                    {
+                        currentColors.length ? currentColors.map((color, index) => (
+                            <Draggable style={{width: '100%'}} key={color} draggableId={color} index={index}>
+                            {(provided) => (
+                                <div
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    ref={provided.innerRef}
+                                >
+                                   <ColorRow 
+                                        index={index}
+                                        currentColors={currentColors} 
+                                        setCurrentColors={setCurrentColors} 
+                                        hex={color} 
+                                        favorites={favorites}
+                                        setFavorites={setFavorites}
+                                   />
+                                </div>
+                            )}
+                            </Draggable>
+                        )) : <p style={{float: 'right'}}>No colors (yet!)</p>}
+                    
+                    {provided.placeholder} 
+                    </div>
+                )}
+                </Droppable>
+            </DragDropContext>
             <ButtonPanel>
                 <Button color={'#00A2E8'} style={{marginTop: '10px', marginBottom: '10px'}} text={'SAVE'} onClick={handleSave} />
                 <Button color={'#c8232b'} style={{marginTop: '10px', marginBottom: '10px'}} onClick={() => setCurrentColors([])} text={'CLEAR'} />
