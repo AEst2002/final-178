@@ -29,6 +29,7 @@ const ColorChip = ({ hex, setCurrentColors, currentColors }) => {
                         backgroundColor: '#BEBEBE',
                         width: '35px',
                         height: '35px',
+                        cursor: 'auto'
 
                     }}
                 iconStyle={{opacity: '1'}}
