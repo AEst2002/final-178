@@ -1,4 +1,4 @@
-import  React, { useState, useEffect } from 'react'
+import  React, { useState, useEffect, useRef } from 'react'
 import CircleButton from '../CircleButton'
 import ColorRow from '../ColorRow'
 import { ButtonPanel, Container, NameContainer, NameEditor } from './styles'
@@ -14,6 +14,28 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
     const [paletteName, setPaletteName] = useState("Unnamed Palette")
     const [nameEdit, setNameEdit] = useState(false)
     const id = parseInt(useParams().id)
+    const dragItem = useRef();
+    const dragOverItem = useRef();
+
+    const dragStart = (e, position) => {
+        dragItem.current = position;
+        console.dir(e.target)
+    };
+
+    const dragEnter = (e, position) => {
+        dragOverItem.current = position;
+      };
+
+    const drop = async (e) => {
+        const copyListItems = [...currentColors];
+        const dragItemContent = copyListItems[dragItem.current];
+        copyListItems.splice(dragItem.current, 1);
+        copyListItems.splice(dragOverItem.current, 0, dragItemContent);
+        dragItem.current = null;
+        dragOverItem.current = null;
+        await setCurrentColors(copyListItems);
+    };
+
 
     useEffect(() => {
         nameEdit && document.getElementById('editor').focus()
@@ -59,18 +81,22 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
         navigate('/')
     }
 
-    console.log(localStorage.getItem("palettes") ? JSON.parse(localStorage.getItem("palettes")) : 'waiting')
+    // console.log(localStorage.getItem("palettes") ? JSON.parse(localStorage.getItem("palettes")) : 'waiting')
 
     return (
         <Container>
             <NameContainer>
                 {nameEdit ? <NameEditor placeholder="Name can't be blank!" type="text" minLength="1" maxLength="20" onChange={(e) => setPaletteName(e.target.value)} id={"editor"} autofocus value={paletteName}/> : paletteName}
-                {/* <NameEditor id={"editor"} autofocus value={paletteName}/> */}
                 <CircleButton style={{marginLeft: '10px'}} icon={nameEdit ? Check : Edit} onClick={() => {paletteName.length > 0 && setNameEdit(!nameEdit)}} />
             </NameContainer>
             {currentColors.length ? currentColors.map((color, index) => {
                 return( 
-                    <ColorRow 
+                    <ColorRow
+                        key={index}
+                        onDragEnd={drop}
+                        onDragStart={(e) => dragStart(e, index)}
+                        onDragEnter={(e) => dragEnter(e, index)}
+                        draggable
                         index={index} 
                         currentColors={currentColors} 
                         setCurrentColors={setCurrentColors} 

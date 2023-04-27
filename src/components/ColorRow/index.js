@@ -14,7 +14,7 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import { Snackbar } from '@mui/material'
 
-const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors, index}) => {
+const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors, index, onDragStart, onDragEnter, onDragEnd}) => {
     const [innerColor, setInnerColor] = useState('#000000')
     const [copied, setCopied] = useState(false)
     useEffect(() => {
@@ -56,7 +56,7 @@ const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors
     }
 
     return (
-        <RowContainer color={hex}>
+        <RowContainer draggable onDragStart={onDragStart} onDragEnter={onDragEnter} onDragEnd={onDragEnd} color={hex}>
             <CircleButton onClick={handleDelete} style={{position: 'absolute', top: '10px', left: '10px'}} icon={Trash} />
             <CircleButton onClick={handleFavorite} style={{position: 'absolute', top: '10px', right: '10px'}} icon={favorites.includes(hex) ? HeartFilled : HeartEmpty}/>
             {index !== 0 && <Chevron onClick={() => handleMove('up')} style={{top: '45px', right: '10px'}} src={innerColor === '#000000' ? UpBlack : UpWhite}/>}
