@@ -3,7 +3,7 @@ import CircleButton from '../CircleButton'
 import ColorRow from '../ColorRow'
 import { ButtonPanel, Container, NameContainer, NameEditor } from './styles'
 import Edit from '../../assets/Edit.png'
-import Check from '../../assets/Check.png'
+import CheckBlack from '../../assets/CheckBlack.png'
 import Button from '../Button'
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -66,7 +66,7 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
             <NameContainer>
                 {nameEdit ? <NameEditor placeholder="Name can't be blank!" type="text" minLength="1" maxLength="20" onChange={(e) => setPaletteName(e.target.value)} id={"editor"} autofocus value={paletteName}/> : paletteName}
                 {/* <NameEditor id={"editor"} autofocus value={paletteName}/> */}
-                <CircleButton style={{marginLeft: '10px'}} icon={nameEdit ? Check : Edit} onClick={() => {paletteName.length > 0 && setNameEdit(!nameEdit)}} />
+                <CircleButton style={{marginLeft: '10px'}} icon={nameEdit ? CheckBlack : Edit} onClick={() => {paletteName.length > 0 && setNameEdit(!nameEdit)}} />
             </NameContainer>
             {currentColors.length ? currentColors.map((color, index) => {
                 return( 
