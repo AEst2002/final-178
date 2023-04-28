@@ -126,7 +126,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                     label="your prompt here!"
                     value={adjectiveInput}
                     margin="normal"
-                    onChange={(e) => setAdjectiveInput(e.target.value)}
+                    onChange={(e) => {setResultColors(null); setAdjectiveInput(e.target.value)}}
                 />
                 <br/>
                 { multiColor ? 
@@ -140,26 +140,32 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                     </div>) :
                     <br/>
                 }
-                
-                { multiColor ? <Button sx={{marginTop: 2}} type="submit">Generate colors</Button>
-                            : <Button type="submit">Generate color</Button>
-
+                {
+                  (resultColors && !loading ) ?
+                    <Button sx={{marginTop: 2}} type="submit">Not quite right? Try again!</Button>
+                  : ( multiColor ? <Button sx={{marginTop: 2}} type="submit"> Generate colors</Button>
+                                 : <Button type="submit">Generate color</Button>
+                    )
                 }
+                
               </form>
               { loading && <PuffLoader size={40} /> }
               <p> {explanation && resultExplanation} </p>
-              <ResultContainer>
+              
               {
-                multiColor ? 
-                  (resultColors && 
-                      resultColors.split(" ").map(element => 
-                          (element.includes('#') && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.slice(element.indexOf('#')).trim()}/>
-                  ))) 
-                  : 
-                  (resultColors && 
-                      <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={resultColors.trim()}/>)
+                resultColors &&
+                  <ResultContainer>
+                    <Typography>The AI thinks you'll like:</Typography> <br/>
+                    (multiColor ?
+                        resultColors.split(" ").map(element => 
+                            (element.includes('#') && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.slice(element.indexOf('#')).trim()}/>
+                    )) 
+                    : <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={resultColors.trim()}/> )
+                    
+                  </ResultContainer>
               }
-              </ResultContainer>
+
+             
           </PromptContainer>
         </Container>
     );
