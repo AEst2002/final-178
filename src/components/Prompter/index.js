@@ -99,7 +99,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                       <h3>that</h3>
                     </div>
                   )}
-                <Accordion sx={{width: "250px", boxShadow: 0, borderRadius: "10px", border: 1, borderColor: "#3b86cb", borderWidth: "2px"}}>
+                <Accordion sx={{width: "247px", boxShadow: 0, borderRadius: "10px", border: 1, borderColor: "#3b86cb", borderWidth: "2px"}}>
                   <AccordionSummary>
                     <InfoOutlined color="info" sx={{marginRight: "5px"}}/>
                     <Typography style={{color: "#3b86cb"}}>What can I ask?</Typography>
@@ -155,13 +155,15 @@ const Prompter = ({currentColors, setCurrentColors}) => {
               {
                 resultColors &&
                   <ResultContainer>
-                    <Typography>The AI thinks you'll like:</Typography> <br/>
+                    <Typography>The AI thinks you'll like:</Typography>
+                    <div>
+                      <br/>
                     {(multiColor ?
                         resultColors.split(" ").map(element => 
                             (element.includes('#') && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.slice(element.indexOf('#')).trim()}/>
                     )) 
                     : <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={resultColors.trim()}/> )}
-                    
+                    </div>
                   </ResultContainer>
               }
 
