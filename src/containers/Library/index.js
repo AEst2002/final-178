@@ -1,28 +1,67 @@
 import React, {useState, useEffect} from 'react'
+import CircleButton from '../../components/CircleButton'
 import Header from '../../components/Header'
-import { Square } from './styles'
+import { Square, PaletteGrid, ButtonPanel } from './styles'
+import Edit from '../../assets/Edit.png'
+import Eye from '../../assets/Eye.png'
+import Trash from '../../assets/Trash.png'
+import PlusBlack from '../../assets/PlusBlack.png'
+import { useNavigate } from 'react-router'
 
 const Library = ({justFinishedId}) => {
+    const navigate = useNavigate()
     const [paletteList, setPaletteList] = useState([])
     useEffect(() => {
         if (localStorage.getItem("palettes")){
             setPaletteList(JSON.parse(localStorage.getItem("palettes")))
         }
     }, [])
+
+    const handleDelete = (id) => {
+        const tempList = [...paletteList]
+        const delIndex = tempList.findIndex(p => p.id === id )
+        tempList[delIndex].deleted = true
+        // const del = tempList.splice(delIndex, 1)
+        localStorage.setItem('palettes', JSON.stringify(tempList))
+        setPaletteList(tempList)
+    }
     return (
         <>
-        {paletteList.map((palette) => {
-            return (
-                <Square>
-                    <a href={`/palette/${palette.id}`}>Edit palette with id {palette.id}</a>
-                    <a href={`/view/${palette.id}`}>View as full screen</a>
-                </Square>
-            )
-        })}
-        <Square>
-            <a href={`/palette/${paletteList.length}`}> New palette (will have id {paletteList.length})</a>
-        </Square>
+        <Header />
+        <h1 style={{marginLeft: 15}}>Your Palettes:</h1>
+        <PaletteGrid>
+            <Square>
+                <p style={{fontWeight: 'bold', marginBottom: 0}}>Create New</p>
+                <CircleButton 
+                    style={{ 
+                        opacity: '0.65',
+                        backgroundColor: '#BEBEBE',
+                        width: '60px',
+                        height: '60px',
+                        marginTop: '35px',
+                    }}
+                    iconStyle={{opacity: '1'}}
+                    icon={PlusBlack}
+                    onClick={() => navigate(`palette/${paletteList.length}`)}
+                        
+                />
+            </Square>
+            {paletteList.map((palette) => {
+                return ( !palette.deleted &&
+                    <Square bcol={palette.colors[0] || 'black'}>
+                        <h3 style={{marginTop: 55, marginBottom: 15}}>{palette.name}</h3>
+                        <p style={{margin: 0}}>({palette.colors.length} colors)</p>
+                        <ButtonPanel>
+                            <CircleButton onClick={() => navigate(`/view/${palette.id}`)} style={{marginTop: 30}} icon={Eye} />
+                            <CircleButton onClick={() => navigate(`/palette/${palette.id}`)} style={{marginTop: 30, marginLeft: 15, marginRight: 15}} icon={Edit} />
+                            <CircleButton style={{marginTop: 30}} icon={Trash} onClick={() => handleDelete(palette.id)}/>
+                        </ButtonPanel>
+                    </Square>
+                )
+            })}            
+        </PaletteGrid>
         </>
+
     )
 }
 
