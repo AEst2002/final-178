@@ -15,6 +15,7 @@ const Library = ({justFinishedId}) => {
             return (
                 <Square>
                     <a href={`/palette/${palette.id}`}>Edit palette with id {palette.id}</a>
+                    <a href={`/view/${palette.id}`}>View as full screen</a>
                 </Square>
             )
         })}

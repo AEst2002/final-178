@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import './App.css';
 import Main from './containers/Main';
+import View from './containers/View'
 import {
   BrowserRouter as Router,
   Routes,
@@ -28,6 +29,18 @@ const App = () => {
               setFavorites={setFavorites}
             />}
         />
+        <Route
+          exact 
+          path='/view/:id' 
+          element={
+            <View 
+              editingId={editingId}
+              setEditingId={setEditingId}
+              favorites={favorites} 
+              setFavorites={setFavorites}
+            />}
+        />
+        
       </Routes>
       
     </Router>
