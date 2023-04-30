@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import Header from '../../components/Header'
-import { Container, Wrapper } from '../Main/styles'
+import { Wrapper } from '../Main/styles'
 import { useParams } from "react-router-dom";
 import ColorRow from '../../components/FullScreenColorRow';
+import {Container} from './styles'
 
 
 const View = ({favorites, setFavorites})=> {
