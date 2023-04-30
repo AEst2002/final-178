@@ -154,20 +154,18 @@ const Prompter = ({currentColors, setCurrentColors}) => {
               
               {
                 resultColors &&
+                <div>
+                  <Typography sx={{fontWeight: "bold"}}>The AI thinks you'll like:</Typography>
+
                   <ResultContainer>
-                    <Typography>The AI thinks you'll like:</Typography>
-                    <div>
-                      <br/>
                     {(multiColor ?
                         resultColors.split(" ").map(element => 
                             (element.includes('#') && <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={element.slice(element.indexOf('#')).trim()}/>
                     )) 
                     : <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={resultColors.trim()}/> )}
-                    </div>
                   </ResultContainer>
-              }
-
-             
+                </div>
+            }           
           </PromptContainer>
         </Container>
     );
