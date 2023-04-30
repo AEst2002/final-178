@@ -26,7 +26,7 @@ const View = ({favorites, setFavorites})=> {
     }, [id, palette])
     return (
         <Wrapper>
-            <Header />
+            <Header showLibrary />
             <Container style={{width: "100%"}}> 
                 {
                     currentColors.length ? currentColors.map((color, index) => (

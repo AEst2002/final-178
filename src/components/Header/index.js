@@ -1,8 +1,15 @@
-import { NameContainer, Name } from "./styles"
+import { HeaderContainer, NameContainer, Name } from "./styles"
+import Link from '@mui/material/Link'
 
-const Header = () => {
+const Header = ({showLibrary}) => {
     return (
-        <NameContainer><Name>chromAI</Name></NameContainer> 
+        <HeaderContainer>
+            <Name>chromAI</Name>
+            { showLibrary ? 
+                <Link href='/' underline="none" sx={{marginRight: "10px"}}>Back to Library</Link>
+            : []
+            }
+        </HeaderContainer> 
     )
 }
 
