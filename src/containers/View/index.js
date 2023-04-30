@@ -3,7 +3,7 @@ import Header from '../../components/Header'
 import { Wrapper } from '../Main/styles'
 import { useParams } from "react-router-dom";
 import ColorRow from '../../components/FullScreenColorRow';
-import {Container} from './styles'
+import {Container, PaletteName} from './styles'
 
 
 const View = ({favorites, setFavorites})=> {
@@ -27,6 +27,7 @@ const View = ({favorites, setFavorites})=> {
     return (
         <Wrapper>
             <Header showLibrary />
+            <PaletteName>{paletteName}</PaletteName>
             <Container style={{width: "100%"}}> 
                 {
                     currentColors.length ? currentColors.map((color, index) => (
