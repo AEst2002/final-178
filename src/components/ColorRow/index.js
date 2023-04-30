@@ -61,7 +61,7 @@ const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors
             <CircleButton onClick={handleFavorite} style={{position: 'absolute', top: '10px', right: '10px'}} icon={favorites.includes(hex) ? HeartFilled : HeartEmpty}/>
             {index !== 0 && <Chevron onClick={() => handleMove('up')} style={{top: '45px', right: '10px'}} src={innerColor === '#000000' ? UpBlack : UpWhite}/>}
             {index !== (currentColors.length - 1) && <Chevron onClick={() => handleMove('down')} style={{top: '90px', right: '10px'}} src={innerColor === '#000000' ? DownBlack : DownWhite}/>}
-            <RowText fontSize={'30px'} color={innerColor} id={hex}>{hex}            
+            <RowText fontSize={'30px'} color={innerColor} id={hex}>{hex.toUpperCase()}            
                 <CopyToClipboard style={{cursor: 'pointer', marginLeft: "7px"}} text={hex} onCopy={() => setCopied(true)}>
                     <ContentCopyOutlinedIcon />
                 </CopyToClipboard>

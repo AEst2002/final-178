@@ -16,7 +16,7 @@ const FullScreenColorRow = ({favorites, setFavorites, hex, setCurrentColors, cur
 
     return (
         <RowContainer color={hex} style={{width: "100%"}}>
-            <RowText fontSize={'45px'} color={innerColor} id={hex}>{hex}            
+            <RowText fontSize={'45px'} color={innerColor} id={hex}>{hex.toUpperCase()}            
                 <CopyToClipboard style={{cursor: 'pointer', marginLeft: "7px"}} text={hex} onCopy={() => setCopied(true)}>
                     <ContentCopyOutlinedIcon fontSize='large'/>
                 </CopyToClipboard>
