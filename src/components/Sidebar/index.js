@@ -99,7 +99,7 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
                                 </div>
                             )}
                             </Draggable>
-                        )) : <p style={{float: 'right'}}>No colors (yet!)</p>}
+                        )) : <p style={{textAlign: "center"}}>No colors (yet!)</p>}
                     
                     {provided.placeholder} 
                     </div>
