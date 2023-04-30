@@ -19,6 +19,7 @@ const Library = ({justFinishedId}) => {
     const navigate = useNavigate()
     const [paletteList, setPaletteList] = useState([])
     const [openAlert, setOpenAlert] = React.useState(false);
+    const [delTarget, setDelTarget] = useState(null)
 
     useEffect(() => {
         if (localStorage.getItem("palettes")){
@@ -30,6 +31,7 @@ const Library = ({justFinishedId}) => {
         const tempList = [...paletteList]
         const delIndex = tempList.findIndex(p => p.id === id )
         tempList[delIndex].deleted = true
+        console.log(delIndex)
         // const del = tempList.splice(delIndex, 1)
         localStorage.setItem('palettes', JSON.stringify(tempList))
         setPaletteList(tempList)
@@ -72,7 +74,7 @@ const Library = ({justFinishedId}) => {
                         <ButtonPanel>
                             <CircleButton onClick={() => navigate(`/view/${palette.id}`)} style={{marginTop: 30}} icon={Eye} />
                             <CircleButton onClick={() => navigate(`/palette/${palette.id}`)} style={{marginTop: 30, marginLeft: 15, marginRight: 15}} icon={Edit} />
-                            <CircleButton style={{marginTop: 30}} icon={Trash} onClick={() => handleOpen()}/>
+                            <CircleButton style={{marginTop: 30}} icon={Trash} onClick={() => {setDelTarget(palette.id); handleOpen()}}/>
                             <Dialog
                                 open={openAlert}
                                 onClose={handleClose}
@@ -81,7 +83,7 @@ const Library = ({justFinishedId}) => {
                                     {"Are you sure you want to delete this palette?"}
                                 </DialogContent>
                                 <DialogActions>
-                                <Button onClick={() => {handleClose(); handleDelete(palette.id)}}>Yes</Button>
+                                <Button onClick={() => {handleClose(); handleDelete(delTarget)}}>Yes</Button>
                                 <Button onClick={handleClose} autoFocus>
                                     No
                                 </Button>

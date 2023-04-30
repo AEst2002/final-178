@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Configuration, OpenAIApi } from "openai";
 import ColorChip from '../ColorChip';
-import { PromptContainer, ResultContainer, Container, ExitLink } from './styles';
+import { PromptContainer, ResultContainer, Container, Chev } from './styles';
 import PuffLoader from "react-spinners/PuffLoader";
 import Switch from "@mui/joy/Switch";
 import Typography  from "@mui/joy/Typography";
@@ -11,14 +11,17 @@ import Accordion from "@mui/material/Accordion"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import Button from "@mui/joy/Button"
-import { InfoOutlined } from '@mui/icons-material';
+import { Face, InfoOutlined } from '@mui/icons-material';
+import ChevDown from '../../assets/ChevDown.png'
+import ChevRight from '../../assets/ChevRight.png'
+
 
 const configuration = new Configuration({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY
   });
 const openai = new OpenAIApi(configuration);
   
-const Prompter = ({currentColors, setCurrentColors}) => {
+const Prompter = ({currentColors, setCurrentColors, favorites, setFavorites}) => {
     const [numberInput, setNumberInput] = useState("");
     const [colorInput, setColorInput] = useState("");
     const [multiColor, setMultiColor] = useState(true);
@@ -27,6 +30,14 @@ const Prompter = ({currentColors, setCurrentColors}) => {
     const [resultExplanation, setResultExplanation] = useState();
     const [explanation, setExplanation] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [showFavorites, setShowFavorites] = useState(false)
+
+    useEffect(() => {
+      const favJSON = localStorage.getItem('favorites')
+      if (favJSON){
+        setFavorites(JSON.parse(favJSON))
+      }
+    }, [setFavorites])
 
     const onSubmit = async (event) => {
         setLoading(true);
@@ -60,13 +71,13 @@ const Prompter = ({currentColors, setCurrentColors}) => {
         <Container>
           <PromptContainer>
             <Switch 
-              startDecorator={<Typography>Multiple Colors</Typography>} 
-              endDecorator={<Typography>One Color</Typography>}
+              startDecorator={<Typography sx={{fontSize: 16}}>Multiple Colors</Typography>} 
+              endDecorator={<Typography sx={{fontSize: 16}}>One Color</Typography>}
               value={multiColor}
               onChange={(e) => {setResultColors(null); setMultiColor(!multiColor); setExplanation(false); setResultExplanation(); setAdjectiveInput("")}} 
             />
             <br/>
-            <form onSubmit={onSubmit}>
+            <form style={{marginBottom: '15px'}} onSubmit={onSubmit}>
               { multiColor ? (
                   <div>
                     <h3>Generate</h3>
@@ -75,7 +86,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                       type="number"
                       name="number"
                       variant="outlined"
-                      size="small"
+                      size="medium"
                       label="number"
                       inputProps={{ min: 1, max: 21 }} 
                       value={numberInput}
@@ -92,7 +103,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                         type="text"
                         name="color"
                         label="color"
-                        size="small"
+                        size="medium"
                         value={colorInput}
                         required="true"
                         onChange={(e) => setColorInput(e.target.value)}/>
@@ -132,6 +143,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                 { multiColor ? 
                   (<div>
                       <Checkbox
+                      sx={{marginTop: 2}}
                         value={explanation}
                         onChange={(e) => setExplanation(!explanation)} 
                         label="Explain why the AI chose these colors"
@@ -142,9 +154,9 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                 }
                 {
                   (resultColors && !loading ) ?
-                    <Button sx={{marginTop: 2}} type="submit">Not quite right? Try again!</Button>
-                  : ( multiColor ? <Button sx={{marginTop: 2}} type="submit"> Generate colors</Button>
-                                 : <Button type="submit">Generate color</Button>
+                    <Button sx={{ fontSize: '16px', marginTop: 2}} type="submit">Not quite right? Try again!</Button>
+                  : ( multiColor ? <Button sx={{fontSize: '16px', marginTop: 2}} type="submit"> Generate colors</Button>
+                                 : <Button sx={{fontSize: '16px'}} type="submit">Generate color</Button>
                     )
                 }
                 
@@ -155,7 +167,7 @@ const Prompter = ({currentColors, setCurrentColors}) => {
               {
                 resultColors &&
                 <div>
-                  <Typography sx={{fontWeight: "bold"}}>The AI thinks you'll like:</Typography>
+                  <Typography sx={{marginTop: '15px', fontWeight: "bold"}}>The AI thinks you'll like:</Typography>
 
                   <ResultContainer>
                     {(multiColor ?
@@ -165,7 +177,22 @@ const Prompter = ({currentColors, setCurrentColors}) => {
                     : <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={resultColors.trim()}/> )}
                   </ResultContainer>
                 </div>
-            }           
+              }
+              {
+                favorites.length > 0 &&
+                  <>
+                    <Typography onClick={() => setShowFavorites(!showFavorites)} sx={{display: 'flex', alignItems: 'center', width: '150px', cursor: 'pointer', marginTop: '15px', fontWeight: "bold"}}>
+                        Your favorites <Chev src={showFavorites ? ChevDown : ChevRight}/> 
+                    </Typography>
+                    {showFavorites &&
+                      <ResultContainer>
+                        {favorites.map((color) => {
+                          return <ColorChip currentColors={currentColors} setCurrentColors={setCurrentColors} hex={color}/>
+                        })}  
+                      </ResultContainer>
+                    }
+                  </>
+              }       
           </PromptContainer>
         </Container>
     );

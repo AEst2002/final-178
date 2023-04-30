@@ -17,7 +17,7 @@ export const ExamplePrompt = styled.div`
 
 
 export const Container = styled.div`
-    width: 100%;
+    width: 90%;
     height: 100vh;
     border: 2px solid #C0C0C0;
     border-right: none;
@@ -43,5 +43,10 @@ export const ExitLink = styled.a`
     :visited{
         color: #373737;
     }
-    
+`
+
+export const Chev = styled.img`
+    width: 16px;
+    height: 16px;
+    margin-left: 3px;
 `

@@ -108,7 +108,7 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
             </DragDropContext>
             <ButtonPanel>
                 <Button color={'#00A2E8'} style={{marginTop: '10px', marginBottom: '10px'}} text={'SAVE'} onClick={handleSave} />
-                <Button color={'#c8232b'} style={{marginTop: '10px', marginBottom: '10px'}} onClick={() => setCurrentColors([])} text={'CLEAR'} />
+                <Button color={'#c8232b'} style={{marginTop: '10px', marginBottom: '10px', marginLeft: 15, marginRight: 15}} onClick={() => setCurrentColors([])} text={'CLEAR'} />
                 <Button color={'#7B002D'} onClick={() => navigate("/")} width={'215px'}text={'EXIT WITHOUT SAVING'} />
             </ButtonPanel>
 

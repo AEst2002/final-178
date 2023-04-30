@@ -10,10 +10,14 @@ import { ntc } from '../../util/ntc'
 
 const ColorChip = ({ hex, setCurrentColors, currentColors }) => {
     const [innerColor, setInnerColor] = useState('#000000')
-    const [added, setAdded] = useState(false)
+    const [added, setAdded] = useState(currentColors.includes(hex))
     useEffect(() => {
         setInnerColor(textColor(hex))
     }, [hex])
+
+    useEffect(() => {
+        setAdded(currentColors.includes(hex))
+    }, [currentColors, hex])
 
     return (
         <Container color={hex}>

@@ -13,7 +13,6 @@ import Library from './containers/Library';
 const App = () => {
   const [favorites, setFavorites] = useState([])
   const [editingId, setEditingId] = useState(null)
-  console.log(favorites)
   return (
     <Router>
       <Routes>

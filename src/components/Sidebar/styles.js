@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    width: 50%;
+    width: 80%;
     border: 2px solid #C0C0C0;
     height: 100vh;
     display: flex;
@@ -41,7 +41,7 @@ export const ButtonPanel = styled.div`
     background-color: white;
     border-top: 2px solid #C0C0C0;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
 `

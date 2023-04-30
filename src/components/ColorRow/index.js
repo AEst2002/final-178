@@ -21,6 +21,13 @@ const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors
         setInnerColor(textColor(hex))
     }, [hex])
 
+    useEffect(() => {
+        const favJSON = localStorage.getItem('favorites')
+        if (favJSON) {
+            setFavorites(JSON.parse(favJSON))
+        }
+    }, [setFavorites])
+
     const handleDelete = () => {
         // need to copy state and change it because .splice() modifies array in-place.
         const curColCopy = [...currentColors]
@@ -38,6 +45,7 @@ const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors
         }
 
         setFavorites(favCopy)
+        localStorage.setItem('favorites', JSON.stringify(favCopy))
     }
 
     const handleMove = (direction) => {

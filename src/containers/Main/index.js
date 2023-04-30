@@ -40,29 +40,25 @@ const Main = ({editingId, setEditingId, favorites, setFavorites}) => {
   //   }
   // }
 
-  const {id} = useParams()
-  console.log(id)
-
-
-  // pass id from library every single time (even for new palettes)
-  // generate new id whenever clicking "new" in library, pass as URL parameter. pass existing ID for editing existing palette.
-  // library becomes new 'home' page
-  // edit saving function in Sidebar because you will now ALWAYS have an id to save with.
-
-
+console.log(favorites)
   return (
     <Wrapper>
         <Header />
         <Container>
-            <Prompter currentColors={currentColors} setCurrentColors={setCurrentColors}/>
-              <Sidebar 
-                setEditingId={setEditingId} 
-                editingId={editingId} 
-                favorites={favorites} 
-                setFavorites={setFavorites} 
-                setCurrentColors={setCurrentColors} 
-                currentColors={currentColors}
-              />
+            <Prompter 
+              favorites={favorites} 
+              setFavorites={setFavorites} 
+              currentColors={currentColors} 
+              setCurrentColors={setCurrentColors}
+            />
+            <Sidebar 
+              setEditingId={setEditingId} 
+              editingId={editingId} 
+              favorites={favorites} 
+              setFavorites={setFavorites} 
+              setCurrentColors={setCurrentColors} 
+              currentColors={currentColors}
+            />
         </Container>
     </Wrapper>
     
