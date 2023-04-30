@@ -4,6 +4,7 @@ import { Wrapper } from '../Main/styles'
 import { useParams } from "react-router-dom";
 import ColorRow from '../../components/FullScreenColorRow';
 import {Container, PaletteName} from './styles'
+import { Link } from '@mui/material';
 
 
 const View = ({favorites, setFavorites})=> {
@@ -27,7 +28,7 @@ const View = ({favorites, setFavorites})=> {
     return (
         <Wrapper>
             <Header showLibrary />
-            <PaletteName>{paletteName}</PaletteName>
+            <PaletteName>{paletteName}<br/><Link href={`/palette/${id}`} underline="none" sx={{fontWeight: "normal", fontSize: "17px"}}>Edit this palette</Link></PaletteName>
             <Container style={{width: "100%"}}> 
                 {
                     currentColors.length ? currentColors.map((color, index) => (

@@ -13,8 +13,9 @@ export const PaletteName = styled.div`
     min-height: 40px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     background-color: white;
+    flex-direction: column;
     color: black;
     font-size: 30px;
     font-weight: bold;
