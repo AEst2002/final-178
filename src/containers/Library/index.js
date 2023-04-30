@@ -7,10 +7,19 @@ import Eye from '../../assets/Eye.png'
 import Trash from '../../assets/Trash.png'
 import PlusBlack from '../../assets/PlusBlack.png'
 import { useNavigate } from 'react-router'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button'
+
 
 const Library = ({justFinishedId}) => {
     const navigate = useNavigate()
     const [paletteList, setPaletteList] = useState([])
+    const [openAlert, setOpenAlert] = React.useState(false);
+
     useEffect(() => {
         if (localStorage.getItem("palettes")){
             setPaletteList(JSON.parse(localStorage.getItem("palettes")))
@@ -25,6 +34,15 @@ const Library = ({justFinishedId}) => {
         localStorage.setItem('palettes', JSON.stringify(tempList))
         setPaletteList(tempList)
     }
+
+    const handleClose = () => {
+        setOpenAlert(false);
+    }
+
+    const handleOpen = () => {
+        setOpenAlert(true);
+    }
+    
     return (
         <>
         <Header />
@@ -54,7 +72,22 @@ const Library = ({justFinishedId}) => {
                         <ButtonPanel>
                             <CircleButton onClick={() => navigate(`/view/${palette.id}`)} style={{marginTop: 30}} icon={Eye} />
                             <CircleButton onClick={() => navigate(`/palette/${palette.id}`)} style={{marginTop: 30, marginLeft: 15, marginRight: 15}} icon={Edit} />
-                            <CircleButton style={{marginTop: 30}} icon={Trash} onClick={() => handleDelete(palette.id)}/>
+                            <CircleButton style={{marginTop: 30}} icon={Trash} onClick={() => handleOpen()}/>
+                            <Dialog
+                                open={openAlert}
+                                onClose={handleClose}
+                            >
+                                <DialogContent>
+                                    {"Are you sure you want to delete this palette?"}
+                                </DialogContent>
+                                <DialogActions>
+                                <Button onClick={() => {handleClose(); handleDelete(palette.id)}}>Yes</Button>
+                                <Button onClick={handleClose} autoFocus>
+                                    No
+                                </Button>
+                                </DialogActions>
+
+                            </Dialog>
                         </ButtonPanel>
                     </Square>
                 )
