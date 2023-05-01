@@ -15,6 +15,7 @@ import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import { Snackbar } from '@mui/material'
 
 // CONCEPT: This file represents a major instantiation of the #Color concept, particularly once it has been added to a palette already.
+// See ColorChip/index.js for additional implementations related to the #Color concept.
 const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors, index}) => {
     const [innerColor, setInnerColor] = useState('#000000')
     const [copied, setCopied] = useState(false)
