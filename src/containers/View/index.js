@@ -8,6 +8,7 @@ import { Link } from '@mui/material';
 
 
 const View = ({favorites, setFavorites})=> {
+    // CONCEPT #Palette. View a Palette as full screen.
     const [palette, setPalette] = useState({})
     const [currentColors, setCurrentColors] = useState([])
     const [paletteName, setPaletteName] = useState("")
@@ -15,9 +16,7 @@ const View = ({favorites, setFavorites})=> {
     const {id} = useParams()
 
     useEffect(() => {
-        if (localStorage.getItem("palettes")){
-
-            // var tempPalette = (JSON.parse(localStorage.getItem("palettes"))[id])
+        if (localStorage.getItem("palettes")) {
             var palettes = JSON.parse(localStorage.getItem("palettes"))
             var tempPalette = palettes.filter((p) => p.id === parseInt(id))
             setPalette(tempPalette)
@@ -28,6 +27,7 @@ const View = ({favorites, setFavorites})=> {
     return (
         <Wrapper>
             <Header showLibrary />
+            {/* CONCEPT: #Palette. Edit a Palette by adding, removing, or reordering #Colors. See the Prompter and Sidebar components.  */}
             <PaletteName>{paletteName}<br/><Link href={`/palette/${id}`} underline="none" sx={{fontWeight: "normal", fontSize: "17px"}}>Edit this palette</Link></PaletteName>
             <Container style={{width: "100%"}}> 
                 {

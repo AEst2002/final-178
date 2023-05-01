@@ -10,8 +10,6 @@ import { useNavigate } from 'react-router'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button'
 
 
@@ -27,12 +25,12 @@ const Library = ({justFinishedId}) => {
         }
     }, [])
 
+    // CONCEPT: #Palette
+    // Delete a palette from the user's #Library
     const handleDelete = (id) => {
         const tempList = [...paletteList]
         const delIndex = tempList.findIndex(p => p.id === id )
         tempList[delIndex].deleted = true
-        console.log(delIndex)
-        // const del = tempList.splice(delIndex, 1)
         localStorage.setItem('palettes', JSON.stringify(tempList))
         setPaletteList(tempList)
     }
@@ -51,6 +49,7 @@ const Library = ({justFinishedId}) => {
         <h1 style={{marginLeft: 15}}>Your Palettes:</h1>
         <PaletteGrid>
             <Square>
+                {/* CONCEPT: #Palette. Create a new Palette to add to a user's #Library. */}
                 <p style={{fontWeight: 'bold', marginBottom: 0}}>Create New</p>
                 <CircleButton 
                     style={{ 
@@ -72,8 +71,11 @@ const Library = ({justFinishedId}) => {
                         <h3 style={{marginTop: 55, marginBottom: 15}}>{palette.name}</h3>
                         <p style={{margin: 0}}>({palette.colors.length} colors)</p>
                         <ButtonPanel>
+                            {/* CONCEPT: #Palette. View a Palette as full screen. See the View container. */}
                             <CircleButton onClick={() => navigate(`/view/${palette.id}`)} style={{marginTop: 30}} icon={Eye} />
+                            {/* CONCEPT: #Palette. Edit a Palette by adding, removing, or reordering #Colors. See the Prompter and Sidebar components.  */}
                             <CircleButton onClick={() => navigate(`/palette/${palette.id}`)} style={{marginTop: 30, marginLeft: 15, marginRight: 15}} icon={Edit} />
+                            {/* CONCEPT: #Palette. Delete a Palette and remove it from a user's #Library.  */}
                             <CircleButton style={{marginTop: 30}} icon={Trash} onClick={() => {setDelTarget(palette.id); handleOpen()}}/>
                             <Dialog
                                 open={openAlert}

@@ -1,4 +1,4 @@
-import  React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import CircleButton from '../CircleButton'
 import ColorRow from '../ColorRow'
 import { ButtonPanel, Container, NameContainer, NameEditor } from './styles'
@@ -68,11 +68,12 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
     return (
         <Container>
             <NameContainer>
+                {/* CONCEPT #Palette: Associate a Palette with a name */}
                 {nameEdit ? <NameEditor placeholder="Name can't be blank!" type="text" minLength="1" maxLength="20" onChange={(e) => setPaletteName(e.target.value)} id={"editor"} autofocus value={paletteName}/> : paletteName}
-                {/* <NameEditor id={"editor"} autofocus value={paletteName}/> */}
                 <CircleButton style={{marginLeft: '10px'}} icon={nameEdit ? CheckBlack : Edit} onClick={() => {paletteName.length > 0 && setNameEdit(!nameEdit)}} />
             </NameContainer>
             <DragDropContext style={{width: '100%'}} onDragEnd={handleDragEnd}>
+                {/* CONCEPT #Palette: Rearrange the order of #Colors within a Palette. */}
                 <Droppable style={{width: '100%'}} droppableId="droppable">
                 {(provided) => (
                     <div style={{width: '100%'}} ref={provided.innerRef} {...provided.droppableProps}>
@@ -104,6 +105,7 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
                 </Droppable>
             </DragDropContext>
             <ButtonPanel>
+                {/* CONCEPT #Palette: Save a Palette to your #Library, or clear all of the #Colors from a Palette. */}
                 <Button color={'#00A2E8'} style={{marginTop: '10px', marginBottom: '10px'}} text={'SAVE'} onClick={handleSave} />
                 <Button color={'#c8232b'} style={{marginTop: '10px', marginBottom: '10px', marginLeft: 15, marginRight: 15}} onClick={() => setCurrentColors([])} text={'CLEAR'} />
                 <Button color={'#7B002D'} onClick={() => navigate("/")} width={'215px'}text={'EXIT WITHOUT SAVING'} />
