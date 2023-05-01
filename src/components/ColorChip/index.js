@@ -8,6 +8,8 @@ import CheckBlack from '../../assets/CheckBlack.png'
 import textColor from '../../util/textColor'
 import { ntc } from '../../util/ntc'
 
+// CONCEPT: ColorChips represent a different variant of the #Color concept's instantiation, 
+// prior to being added to a palette (See ColorRow/index.js).
 const ColorChip = ({ hex, setCurrentColors, currentColors }) => {
     const [innerColor, setInnerColor] = useState('#000000')
     const [added, setAdded] = useState(currentColors.includes(hex))
@@ -21,6 +23,8 @@ const ColorChip = ({ hex, setCurrentColors, currentColors }) => {
 
     return (
         <Container color={hex}>
+            {/* CONCEPT: An example of the #Color's operaitonal principle: 
+                a color can only be added if it is not already in the palette. */}
             { added 
                 ? 
                 <CircleButton 
@@ -54,6 +58,7 @@ const ColorChip = ({ hex, setCurrentColors, currentColors }) => {
                     }}
                     iconStyle={{opacity: '1'}}
                     icon={innerColor === '#FFFFFF' ? PlusWhite : PlusBlack}
+                    // CONCEPT: This anonymous function implements the addColor() action of the #Color concept.
                     onClick={() => {setAdded(true); setCurrentColors([...currentColors, hex])}}
                 />
             }
