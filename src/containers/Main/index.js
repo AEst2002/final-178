@@ -40,7 +40,6 @@ const Main = ({editingId, setEditingId, favorites, setFavorites}) => {
   //   }
   // }
 
-console.log(favorites)
   return (
     <Wrapper>
         <Header />

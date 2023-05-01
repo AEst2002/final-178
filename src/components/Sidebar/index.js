@@ -22,7 +22,6 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
     useEffect(() => {
         const paletteJSON = localStorage.getItem('palettes')
         const existingPalette = paletteJSON ? JSON.parse(paletteJSON).filter((p) => p.id === id) : []
-        console.log(existingPalette)
         if (existingPalette.length > 0){
             setCurrentColors(existingPalette[0].colors)
             setPaletteName(existingPalette[0].name)
@@ -57,8 +56,6 @@ const Sidebar = ({favorites, setFavorites, currentColors, setCurrentColors}) => 
         // take user to library once they've finished/saved.
         navigate('/')
     }
-
-    console.log(localStorage.getItem("palettes") ? JSON.parse(localStorage.getItem("palettes")) : 'waiting')
 
     const handleDragEnd = (result) => {
         if (!result.destination) return;
