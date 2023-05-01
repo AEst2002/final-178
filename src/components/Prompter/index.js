@@ -31,6 +31,8 @@ const Prompter = ({currentColors, setCurrentColors, favorites, setFavorites}) =>
     const [explanation, setExplanation] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showFavorites, setShowFavorites] = useState(false)
+    const [tryAgain, setTryAgain] = useState(false)
+  
 
     useEffect(() => {
       const favJSON = localStorage.getItem('favorites')
@@ -55,6 +57,8 @@ const Prompter = ({currentColors, setCurrentColors, favorites, setFavorites}) =>
           });
           console.log(completion)
           setLoading(false);
+          setTryAgain(true);
+
 
           let resultArray = completion.data.choices[0].text.split('\\')
           setResultColors(resultArray[0]);
@@ -137,7 +141,7 @@ const Prompter = ({currentColors, setCurrentColors, favorites, setFavorites}) =>
                     label="your prompt here!"
                     value={adjectiveInput}
                     margin="normal"
-                    onChange={(e) => {setResultColors(null); setAdjectiveInput(e.target.value)}}
+                    onChange={(e) => {setTryAgain(false); setAdjectiveInput(e.target.value)}}
                 />
                 <br/>
                 { multiColor ? 
@@ -153,7 +157,7 @@ const Prompter = ({currentColors, setCurrentColors, favorites, setFavorites}) =>
                     <br/>
                 }
                 {
-                  (resultColors && !loading ) ?
+                  ( tryAgain ) ?
                     <Button sx={{ fontSize: '16px', marginTop: 2}} type="submit">Not quite right? Try again!</Button>
                   : ( multiColor ? <Button sx={{fontSize: '16px', marginTop: 2}} type="submit"> Generate colors</Button>
                                  : <Button sx={{fontSize: '16px'}} type="submit">Generate color</Button>
