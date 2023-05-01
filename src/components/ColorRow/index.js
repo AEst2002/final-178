@@ -14,6 +14,7 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import { Snackbar } from '@mui/material'
 
+// CONCEPT: This file represents a major instantiation of the #Color concept, particularly once it has been added to a palette already.
 const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors, index}) => {
     const [innerColor, setInnerColor] = useState('#000000')
     const [copied, setCopied] = useState(false)
@@ -28,6 +29,7 @@ const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors
         }
     }, [setFavorites])
 
+    // CONCEPT: This function implements the deleteColor() action of the #Color concept.
     const handleDelete = () => {
         // need to copy state and change it because .splice() modifies array in-place.
         const curColCopy = [...currentColors]
@@ -35,6 +37,8 @@ const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors
         setCurrentColors(curColCopy)
     }
 
+    // CONCEPT: This function implements the addFavorite action of the #Favorite concept, changing the 
+    // isFavorite state of a particular #Color concept.
     const handleFavorite = () => {
         const favCopy = [...favorites]
 
@@ -48,6 +52,7 @@ const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors
         localStorage.setItem('favorites', JSON.stringify(favCopy))
     }
 
+    // This function handles changes to color ordering within the #Palette concept.
     const handleMove = (direction) => {
         const curColCopy = [...currentColors]
         if (direction === 'up') {
@@ -69,7 +74,8 @@ const ColorRow = ({favorites, setFavorites, hex, setCurrentColors, currentColors
             <CircleButton onClick={handleFavorite} style={{position: 'absolute', top: '10px', right: '10px'}} icon={favorites.includes(hex) ? HeartFilled : HeartEmpty}/>
             {index !== 0 && <Chevron onClick={() => handleMove('up')} style={{top: '45px', right: '10px'}} src={innerColor === '#000000' ? UpBlack : UpWhite}/>}
             {index !== (currentColors.length - 1) && <Chevron onClick={() => handleMove('down')} style={{top: '90px', right: '10px'}} src={innerColor === '#000000' ? DownBlack : DownWhite}/>}
-            <RowText fontSize={'30px'} color={innerColor} id={hex}>{hex.toUpperCase()}            
+            <RowText fontSize={'30px'} color={innerColor} id={hex}>{hex.toUpperCase()}
+                {/* CONCEPT: The CopytoClipboard portion implements the copyColor() action of the #Color concept. */}
                 <CopyToClipboard style={{cursor: 'pointer', marginLeft: "7px"}} text={hex} onCopy={() => setCopied(true)}>
                     <ContentCopyOutlinedIcon />
                 </CopyToClipboard>
