@@ -1,4 +1,4 @@
-import { HeaderContainer, NameContainer, Name } from "./styles"
+import { HeaderContainer, Name } from "./styles"
 import Link from '@mui/material/Link'
 
 const Header = ({showLibrary}) => {

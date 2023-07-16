@@ -11,7 +11,7 @@ import Accordion from "@mui/material/Accordion"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import Button from "@mui/joy/Button"
-import { Face, InfoOutlined } from '@mui/icons-material';
+import { InfoOutlined } from '@mui/icons-material';
 import ChevDown from '../../assets/ChevDown.png'
 import ChevRight from '../../assets/ChevRight.png'
 

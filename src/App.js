@@ -5,8 +5,7 @@ import View from './containers/View'
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  Link
+  Route
 } from 'react-router-dom';
 import Library from './containers/Library';
 
